@@ -1,0 +1,1545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compower Society - Building hope one act at a time</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary-color: dodgerblue;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --light-text: #fff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        /* Navigation */
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        nav a {
+            color: var(--light-text);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light-text);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn:hover {
+            background-color: #1a73e8;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+            margin: 1rem auto 0;
+        }
+
+        /* Collaborations Section */
+        .collaborations {
+            background-color: var(--secondary-color);
+        }
+
+        .collab-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .collab-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-bottom: 2rem;
+            transition: all 0.3s;
+        }
+
+        .collab-btn:hover {
+            background-color: #1a73e8;
+            transform: scale(1.05);
+        }
+
+        .collab-options {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .collab-option {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .collab-option:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .collab-option h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-container, .donate-container {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+        }
+
+        .submit-btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .submit-btn:hover {
+            background-color: #1a73e8;
+        }
+
+        .donate-method {
+            margin-bottom: 2rem;
+        }
+
+        .donate-method h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .donate-method p {
+            margin-bottom: 1rem;
+        }
+
+        .contact-options {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Events Section */
+        .events {
+            background-color: white;
+        }
+
+        .events-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 500px;
+            margin-bottom: 3rem;
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 1rem;
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+
+        .upcoming-events {
+            margin-top: 3rem;
+        }
+
+        .event-card {
+            background-color: var(--secondary-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        .event-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .event-date {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-controls {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            display: none;
+        }
+
+        .admin-controls h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* About Section */
+        .about {
+            background-color: var(--secondary-color);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .leaders {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .leader-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+
+        .leader-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .leader-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .leader-info {
+            padding: 1.5rem;
+        }
+
+        .leader-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .leader-info p {
+            color: #666;
+        }
+
+        .about-details {
+            display: none;
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            margin-top: 2rem;
+        }
+
+        .about-section {
+            margin-bottom: 2rem;
+        }
+
+        .about-section h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            background-color: white;
+        }
+
+        .contact-container {
+            max-width: 800px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .contact-text h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-form {
+            background-color: var(--secondary-color);
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: white;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #ddd;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .copyright {
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #666;
+        }
+
+        /* Admin Login */
+        .login-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .login-container h2 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .logo-container {
+                margin-bottom: 1rem;
+            }
+
+            nav {
+                width: 100%;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 0.5rem;
+                display: none;
+            }
+
+            nav ul.show {
+                display: flex;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .swiper {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo-container">
+            <img src="logo.jpg" alt="Compower Society Logo" class="logo-image" id="logoImage">
+            <div class="logo-text">
+                <h1>Compower Society</h1>
+                <p>Building hope one act at a time</p>
+            </div>
+        </div>
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul id="navMenu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#collaborations">Collaborations</a></li>
+                <li><a href="#events">Events</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+                <li><a href="#" id="adminLoginLink">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Empowering Lives</h1>
+        <p>Join us in creating lasting change by supporting our programs</p>
+        <a href="#collaborations" class="btn">GET INVOLVED</a>
+    </section>
+
+    <!-- Collaborations Section -->
+    <section class="collaborations" id="collaborations">
+        <h2 class="section-title">Collaborations</h2>
+        <div class="collab-container">
+            <button class="collab-btn" id="collabBtn">Want to be part of us?</button>
+            <div class="collab-options" id="collabOptions">
+                <div class="collab-option" data-option="partners">
+                    <h3>Partners</h3>
+                    <p>Join us as a partner organization and work together to make a difference.</p>
+                </div>
+                <div class="collab-option" data-option="sponsors">
+                    <h3>Sponsors</h3>
+                    <p>Support our initiatives through sponsorship and help us reach more people.</p>
+                </div>
+                <div class="collab-option" data-option="donate">
+                    <h3>Donate</h3>
+                    <p>Contribute financially or through material donations to support our cause.</p>
+                </div>
+            </div>
+
+            <!-- Partners Form -->
+            <div class="form-container" id="partnersForm">
+                <h3>Partnership Application</h3>
+                <form id="partnerForm">
+                    <div class="form-group">
+                        <label for="partnerName">Organization Name</label>
+                        <input type="text" id="partnerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerContact">Contact Person</label>
+                        <input type="text" id="partnerContact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerEmail">Email</label>
+                        <input type="email" id="partnerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerPhone">Phone</label>
+                        <input type="tel" id="partnerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerType">Type of Organization</label>
+                        <select id="partnerType" required>
+                            <option value="">Select type</option>
+                            <option value="NGO">NGO</option>
+                            <option value="Corporate">Corporate</option>
+                            <option value="Government">Government</option>
+                            <option value="Religious">Religious</option>
+                            <option value="Educational">Educational</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="partnerDetails">Tell us about your organization and how you'd like to collaborate</label>
+                        <textarea id="partnerDetails" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+
+            <!-- Sponsors Form -->
+            <div class="form-container" id="sponsorsForm">
+                <h3>Sponsorship Application</h3>
+                <form id="sponsorForm">
+                    <div class="form-group">
+                        <label for="sponsorName">Name/Organization</label>
+                        <input type="text" id="sponsorName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorContact">Contact Person</label>
+                        <input type="text" id="sponsorContact" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorEmail">Email</label>
+                        <input type="email" id="sponsorEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorPhone">Phone</label>
+                        <input type="tel" id="sponsorPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorType">Type of Sponsorship</label>
+                        <select id="sponsorType" required>
+                            <option value="">Select type</option>
+                            <option value="Financial">Financial</option>
+                            <option value="Material">Material Goods</option>
+                            <option value="Services">Services</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsorDetails">Tell us about your sponsorship interest</label>
+                        <textarea id="sponsorDetails" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+            </div>
+
+            <!-- Donate Options -->
+            <div class="donate-container" id="donateOptions">
+                <h3>Donation Options</h3>
+                
+                <div class="donate-method">
+                    <h4>Financial Donations</h4>
+                    <p>You can send money through MPESA:</p>
+                    <p><strong>Send money to MPESA No.: 0793482598</strong></p>
+                    <p>Please include your name as the reference.</p>
+                </div>
+                
+                <div class="donate-method">
+                    <h4>Material Donations</h4>
+                    <p>For donations of clothes, food, or other items, please contact us through:</p>
+                    <div class="contact-options">
+                        <div class="contact-option">
+                            <i class="fas fa-envelope"></i>
+                            <span>compower39@gmail.com</span>
+                        </div>
+                        <div class="contact-option">
+                            <i class="fas fa-sms"></i>
+                            <span>SMS: 0793482598</span>
+                        </div>
+                        <div class="contact-option">
+                            <i class="fas fa-phone"></i>
+                            <span>Call: 0793482598</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section class="events" id="events">
+        <h2 class="section-title">Our Events</h2>
+        <div class="events-container">
+            <h3>Past Events</h3>
+            <div class="swiper">
+                <div class="swiper-wrapper" id="pastEventsSwiper">
+                    <!-- Past events will be added here dynamically -->
+                </div>
+                <div class="swiper-pagination"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+            </div>
+
+            <div class="upcoming-events">
+                <h3>Upcoming Events</h3>
+                <div id="upcomingEventsList">
+                    <!-- Upcoming events will be added here dynamically -->
+                </div>
+            </div>
+
+            <!-- Admin Controls (visible only to admins) -->
+            <div class="admin-controls" id="eventsAdminControls">
+                <h3>Admin Controls</h3>
+                <button class="btn" id="addEventBtn">Add New Event</button>
+                
+                <form id="addEventForm" style="display: none; margin-top: 1rem;">
+                    <div class="form-group">
+                        <label for="eventTitle">Event Title</label>
+                        <input type="text" id="eventTitle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDate">Event Date</label>
+                        <input type="date" id="eventDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventLocation">Location</label>
+                        <input type="text" id="eventLocation" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventDescription">Description</label>
+                        <textarea id="eventDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="eventImage">Event Image</label>
+                        <input type="file" id="eventImage" accept="image/*">
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="eventIsUpcoming"> Upcoming Event
+                        </label>
+                    </div>
+                    <button type="submit" class="submit-btn">Add Event</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section class="about" id="about">
+        <h2 class="section-title">About Us</h2>
+        <div class="about-container">
+            <div class="leaders">
+                <div class="leader-card">
+                    <img src="leader1.jpg" alt="Leader 1" class="leader-img" id="leaderImg1">
+                    <div class="leader-info">
+                        <h3>Leader Name 1</h3>
+                        <p>Position/Role</p>
+                    </div>
+                </div>
+                <div class="leader-card">
+                    <img src="leader2.jpg" alt="Leader 2" class="leader-img" id="leaderImg2">
+                    <div class="leader-info">
+                        <h3>Leader Name 2</h3>
+                        <p>Position/Role</p>
+                    </div>
+                </div>
+                <div class="leader-card">
+                    <img src="leader3.jpg" alt="Leader 3" class="leader-img" id="leaderImg3">
+                    <div class="leader-info">
+                        <h3>Leader Name 3</h3>
+                        <p>Position/Role</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn" id="learnMoreBtn">Learn More</button>
+
+            <div class="about-details" id="aboutDetails">
+                <div class="about-section">
+                    <h3>Mission</h3>
+                    <p>ComPower Society is a youth-led community-based foundation driven by a mission to empower, uplift, and transform lives across Kenya—starting from the grassroots. Founded with compassion and purpose, ComPower (short for Community Power) believes that real change begins with ordinary people coming together to serve humanity. Our work is rooted in the values of dignity, equity, and shared responsibility.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>Vision</h3>
+                    <p>At the heart of ComPower Society is the strong desire to support vulnerable and underprivileged groups, especially street children, orphans, and low-income families. We provide both direct assistance and long-term support through initiatives such as food drives, clothing donations, school outreach, and shelter visits. These efforts not only bring relief but restore hope in places where it's often lost.</p>
+                </div>
+                
+                <div class="about-section">
+                    <h3>Values</h3>
+                    <p>A key pillar of our organization is youth and women empowerment. We organize forums, training workshops, mentorship programs, and livelihood projects aimed at equipping young people and women with practical skills, knowledge, and confidence to become independent and impactful leaders in their communities.</p>
+                    <p>We also run seasonal campaigns such as the Pad Drive, where we distribute sanitary products to schoolgirls in rural and marginalized areas. This simple but powerful initiative helps to keep girls in school, fight stigma, and promote dignity in menstrual health. In 2025, we will hold a major Pad Drive in Olkalau, reaching hundreds of girls with not just pads, but also education and encouragement.</p>
+                    <p>ComPower is actively involved in visiting children's homes and special institutions, like the upcoming visit to Heaven's Eye Children Home in August 2025. These visits create moments of joy, care, and connection—reminding every child that they matter. During such visits, we deliver food, toiletries, and emotional support while also identifying areas where long-term help is needed.</p>
+                    <p>As a foundation, we believe in community engagement. We don't just deliver aid—we build networks of trust. Through clean-up campaigns, forums, school visits, and health awareness sessions, we bring people together to take ownership of their environment and social well-being. We empower individuals to be part of the solution.</p>
+                    <p>Partnerships play a big role in how we operate. ComPower Society seeks strong, lasting relationships with corporates, local leaders, churches, schools, and businesses who believe in collective impact. We are currently seeking partners to support and walk with us in our programs—financially, logistically, and through mentorship and visibility.</p>
+                    <p>We also run internal capacity-building by empowering our own members. Young volunteers are given roles in project planning, leadership, public speaking, and organizing events. This makes ComPower not just a charity group, but a training ground for the next generation of servant leaders in Kenya.</p>
+                    <p>ComPower Society is also guided by structure and accountability. We have a leadership board, committed members, and a growing network across different counties. Everything we do is documented and measured for impact, and we are working towards full registration and expansion across the country.</p>
+                    <p>In all our work, we hold firm to one motto: "Together for Humanity." Whether it's a simple meal, a pad, a warm hug, or an open door—we believe that small acts of love can change lives forever. That's the ComPower way.</p>
+                </div>
+
+                <div class="about-section">
+                    <h3>Thank You</h3>
+                    <p>We appreciate your interest in Compower Society and look forward to working together to make a difference in our communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact" id="contact">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-container">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Email</h3>
+                        <p>compower39@gmail.com</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-sms"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>SMS</h3>
+                        <p>0793482598</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Call</h3>
+                        <p>0793482598</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Location</h3>
+                        <p>Nairobi, Kenya</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form">
+                <h3>Send us a message</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="contactName">Your Name</label>
+                        <input type="text" id="contactName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactEmail">Email</label>
+                        <input type="email" id="contactEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactPhone">Phone (optional)</label>
+                        <input type="tel" id="contactPhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="contactSubject">Subject</label>
+                        <input type="text" id="contactSubject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contactMessage">Message</label>
+                        <textarea id="contactMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>About Compower</h3>
+                <ul>
+                    <li><a href="#about">Our Mission</a></li>
+                    <li><a href="#about">Vision</a></li>
+                    <li><a href="#about">Values</a></li>
+                    <li><a href="#about">Leadership</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Our Work</h3>
+                <ul>
+                    <li><a href="#events">Events</a></li>
+                    <li><a href="#collaborations">Programs</a></li>
+                    <li><a href="#collaborations">Partnerships</a></li>
+                    <li><a href="#collaborations">Impact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Get Involved</h3>
+                <ul>
+                    <li><a href="#collaborations">Volunteer</a></li>
+                    <li><a href="#collaborations">Donate</a></li>
+                    <li><a href="#collaborations">Partner With Us</a></li>
+                    <li><a href="#collaborations">Sponsor</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <p style="margin-top: 1rem;">Stay updated with our latest activities and events.</p>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 Compower Society. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div class="modal" id="adminLoginModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="login-container">
+                <h2>Admin Login</h2>
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="adminEmail">Email</label>
+                        <input type="email" id="adminEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="adminPassword">Password</label>
+                        <input type="password" id="adminPassword" required>
+                    </div>
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Event Modal -->
+    <div class="modal" id="addEventModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New Event</h2>
+            <form id="modalEventForm">
+                <div class="form-group">
+                    <label for="modalEventTitle">Event Title</label>
+                    <input type="text" id="modalEventTitle" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalEventDate">Event Date</label>
+                    <input type="date" id="modalEventDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalEventLocation">Location</label>
+                    <input type="text" id="modalEventLocation" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalEventDescription">Description</label>
+                    <textarea id="modalEventDescription" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="modalEventImage">Event Image</label>
+                    <input type="file" id="modalEventImage" accept="image/*" required>
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="modalEventIsUpcoming"> Upcoming Event
+                    </label>
+                </div>
+                <button type="submit" class="submit-btn">Add Event</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div style="text-align: center; padding: 2rem;">
+                <i class="fas fa-check-circle" style="font-size: 4rem; color: green; margin-bottom: 1rem;"></i>
+                <h3>Success!</h3>
+                <p id="successMessage">Your submission has been received.</p>
+                <button class="btn" id="closeSuccessModal" style="margin-top: 1rem;">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                navMenu.classList.toggle('show');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                        
+                        // Close mobile menu if open
+                        navMenu.classList.remove('show');
+                    }
+                });
+            });
+
+            // Collaborations Section
+            const collabBtn = document.getElementById('collabBtn');
+            const collabOptions = document.getElementById('collabOptions');
+            const partnersForm = document.getElementById('partnersForm');
+            const sponsorsForm = document.getElementById('sponsorsForm');
+            const donateOptions = document.getElementById('donateOptions');
+            
+            collabBtn.addEventListener('click', function() {
+                collabOptions.style.display = collabOptions.style.display === 'flex' ? 'none' : 'flex';
+            });
+            
+            document.querySelectorAll('.collab-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    const optionType = this.getAttribute('data-option');
+                    
+                    // Hide all forms
+                    partnersForm.style.display = 'none';
+                    sponsorsForm.style.display = 'none';
+                    donateOptions.style.display = 'none';
+                    
+                    // Show selected form
+                    if (optionType === 'partners') {
+                        partnersForm.style.display = 'block';
+                    } else if (optionType === 'sponsors') {
+                        sponsorsForm.style.display = 'block';
+                    } else if (optionType === 'donate') {
+                        donateOptions.style.display = 'block';
+                    }
+                    
+                    // Scroll to the form
+                    document.querySelector(`#${optionType}Form`).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Form Submissions
+            document.getElementById('partnerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessModal('Thank you for your partnership application. We will get back to you soon.');
+                this.reset();
+            });
+            
+            document.getElementById('sponsorForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessModal('Thank you for your sponsorship interest. We will contact you shortly.');
+                this.reset();
+            });
+            
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showSuccessModal('Thank you for your message. We will respond as soon as possible.');
+                this.reset();
+            });
+
+            // About Section - Learn More Button
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            const aboutDetails = document.getElementById('aboutDetails');
+            
+            learnMoreBtn.addEventListener('click', function() {
+                aboutDetails.style.display = aboutDetails.style.display === 'block' ? 'none' : 'block';
+                this.textContent = aboutDetails.style.display === 'block' ? 'Show Less' : 'Learn More';
+                
+                if (aboutDetails.style.display === 'block') {
+                    aboutDetails.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+
+            // Events Section - Initialize Swiper
+            const swiper = new Swiper('.swiper', {
+                loop: true,
+                autoplay: {
+                    delay: 5000,
+                    disableOnInteraction: false,
+                },
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                },
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+            });
+
+            // Sample Events Data (in a real app, this would come from a database)
+            let eventsData = [
+                {
+                    id: 1,
+                    title: "Pad Drive 2024",
+                    date: "2024-03-08",
+                    location: "Olkalau",
+                    description: "Distribution of sanitary products to schoolgirls in rural areas.",
+                    image: "event1.jpg",
+                    upcoming: false
+                },
+                {
+                    id: 2,
+                    title: "Children's Home Visit",
+                    date: "2024-05-15",
+                    location: "Heaven's Eye Children Home",
+                    description: "Visit to deliver food, toiletries and emotional support to children.",
+                    image: "event2.jpg",
+                    upcoming: false
+                },
+                {
+                    id: 3,
+                    title: "Youth Empowerment Workshop",
+                    date: "2024-06-20",
+                    location: "Nairobi",
+                    description: "Training workshop for young people on leadership and life skills.",
+                    image: "event3.jpg",
+                    upcoming: false
+                },
+                {
+                    id: 4,
+                    title: "Pad Drive 2025",
+                    date: "2025-03-08",
+                    location: "Olkalau",
+                    description: "Major Pad Drive event reaching hundreds of girls with sanitary products and education.",
+                    image: "event4.jpg",
+                    upcoming: true
+                },
+                {
+                    id: 5,
+                    title: "Children's Home Visit",
+                    date: "2025-08-20",
+                    location: "Heaven's Eye Children Home",
+                    description: "Upcoming visit to deliver support and identify long-term help areas.",
+                    image: "event5.jpg",
+                    upcoming: true
+                }
+            ];
+
+            // Display Events
+            function displayEvents() {
+                const pastEventsContainer = document.getElementById('pastEventsSwiper');
+                const upcomingEventsContainer = document.getElementById('upcomingEventsList');
+                
+                // Clear existing events
+                pastEventsContainer.innerHTML = '';
+                upcomingEventsContainer.innerHTML = '';
+                
+                // Get current date
+                const currentDate = new Date();
+                currentDate.setHours(0, 0, 0, 0);
+                
+                // Separate past and upcoming events
+                const pastEvents = eventsData.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate < currentDate || !event.upcoming;
+                });
+                
+                const upcomingEvents = eventsData.filter(event => {
+                    const eventDate = new Date(event.date);
+                    return eventDate >= currentDate && event.upcoming;
+                }).sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                // Display past events in swiper
+                pastEvents.forEach(event => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    
+                    slide.innerHTML = `
+                        <img src="${event.image}" alt="${event.title}">
+                        <div class="slide-caption">
+                            <h4>${event.title}</h4>
+                            <p>${formatDate(event.date)} | ${event.location}</p>
+                        </div>
+                    `;
+                    
+                    pastEventsContainer.appendChild(slide);
+                });
+                
+                // Display upcoming events
+                if (upcomingEvents.length > 0) {
+                    upcomingEvents.forEach(event => {
+                        const eventCard = document.createElement('div');
+                        eventCard.className = 'event-card';
+                        
+                        eventCard.innerHTML = `
+                            <h3>${event.title}</h3>
+                            <p class="event-date">${formatDate(event.date)} | ${event.location}</p>
+                            <p>${event.description}</p>
+                        `;
+                        
+                        upcomingEventsContainer.appendChild(eventCard);
+                    });
+                } else {
+                    upcomingEventsContainer.innerHTML = '<p>No upcoming events scheduled. Check back later!</p>';
+                }
+                
+                // Reinitialize swiper after adding slides
+                swiper.update();
+            }
+            
+            // Format date for display
+            function formatDate(dateString) {
+                const options = { year: 'numeric', month: 'long', day: 'numeric' };
+                return new Date(dateString).toLocaleDateString('en-US', options);
+            }
+            
+            // Initial display of events
+            displayEvents();
+            
+            // Admin Login
+            const adminLoginLink = document.getElementById('adminLoginLink');
+            const adminLoginModal = document.getElementById('adminLoginModal');
+            const closeModalButtons = document.querySelectorAll('.close-modal');
+            const loginForm = document.getElementById('loginForm');
+            const eventsAdminControls = document.getElementById('eventsAdminControls');
+            
+            // Admin credentials
+            const adminEmails = ['compower39@gmail.com', 'fredayiera30@gmail.com'];
+            const adminPassword = '@fred123456';
+            
+            adminLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                adminLoginModal.style.display = 'flex';
+            });
+            
+            closeModalButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal')) {
+                    e.target.style.display = 'none';
+                }
+            });
+            
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('adminEmail').value;
+                const password = document.getElementById('adminPassword').value;
+                
+                if (adminEmails.includes(email) && password === adminPassword) {
+                    showSuccessModal('Login successful! Admin controls are now available.');
+                    adminLoginModal.style.display = 'none';
+                    
+                    // Show admin controls
+                    eventsAdminControls.style.display = 'block';
+                    
+                    // Change login link to logout
+                    adminLoginLink.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
+                    adminLoginLink.removeEventListener('click', loginClickHandler);
+                    adminLoginLink.addEventListener('click', logout);
+                } else {
+                    alert('Invalid email or password. Please try again.');
+                }
+            });
+            
+            function logout() {
+                eventsAdminControls.style.display = 'none';
+                adminLoginLink.innerHTML = 'Admin Login';
+                adminLoginLink.removeEventListener('click', logout);
+                adminLoginLink.addEventListener('click', loginClickHandler);
+            }
+            
+            function loginClickHandler(e) {
+                e.preventDefault();
+                adminLoginModal.style.display = 'flex';
+            }
+            
+            // Admin Event Management
+            const addEventBtn = document.getElementById('addEventBtn');
+            const addEventForm = document.getElementById('addEventForm');
+            const addEventModal = document.getElementById('addEventModal');
+            const modalEventForm = document.getElementById('modalEventForm');
+            
+            addEventBtn.addEventListener('click', function() {
+                addEventModal.style.display = 'flex';
+            });
+            
+            modalEventForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const newEvent = {
+                    id: eventsData.length + 1,
+                    title: document.getElementById('modalEventTitle').value,
+                    date: document.getElementById('modalEventDate').value,
+                    location: document.getElementById('modalEventLocation').value,
+                    description: document.getElementById('modalEventDescription').value,
+                    image: 'event-default.jpg', // In a real app, you would upload and store the image
+                    upcoming: document.getElementById('modalEventIsUpcoming').checked
+                };
+                
+                eventsData.push(newEvent);
+                displayEvents();
+                
+                showSuccessModal('Event added successfully!');
+                modalEventForm.reset();
+                addEventModal.style.display = 'none';
+            });
+            
+            // Image Upload Handling
+            document.getElementById('logoImage').addEventListener('click', function() {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                
+                input.onchange = function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            document.getElementById('logoImage').src = event.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                };
+                
+                input.click();
+            });
+            
+            // Similarly for leader images
+            ['leaderImg1', 'leaderImg2', 'leaderImg3'].forEach(id => {
+                document.getElementById(id).addEventListener('click', function() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = 'image/*';
+                    
+                    input.onchange = function(e) {
+                        const file = e.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(event) {
+                                document.getElementById(id).src = event.target.result;
+                            };
+                            reader.readAsDataURL(file);
+                        }
+                    };
+                    
+                    input.click();
+                });
+            });
+            
+            // Success Modal
+            function showSuccessModal(message) {
+                document.getElementById('successMessage').textContent = message;
+                document.getElementById('successModal').style.display = 'flex';
+            }
+            
+            document.getElementById('closeSuccessModal').addEventListener('click', function() {
+                document.getElementById('successModal').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
