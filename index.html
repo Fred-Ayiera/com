@@ -693,6 +693,7 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             text-align: center;
+            position: relative;
         }
 
         .leader-card:hover {
@@ -973,6 +974,188 @@
             transform: rotate(90deg);
         }
 
+        /* Admin Dashboard */
+        .admin-dashboard {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: var(--white);
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            z-index: 1000;
+            display: none;
+        }
+
+        .admin-dashboard.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .admin-dashboard h4 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .admin-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .admin-btn {
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 6px;
+            background: var(--primary);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .admin-btn:hover {
+            background: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        .admin-btn i {
+            font-size: 1rem;
+        }
+
+        /* Leader Admin Controls */
+        .leader-admin-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 0.5rem;
+        }
+
+        .leader-card:hover .leader-admin-controls {
+            display: flex;
+        }
+
+        .leader-admin-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .leader-admin-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .leader-admin-btn.edit {
+            background: var(--primary);
+        }
+
+        .leader-admin-btn.delete {
+            background: #e53935;
+        }
+
+        /* Logo Upload Form */
+        .logo-upload-form {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .logo-upload-form.active {
+            display: block;
+        }
+
+        .logo-upload-form h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .logo-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border: 3px solid var(--primary);
+        }
+
+        /* Leader Form Modal */
+        .leader-form-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            z-index: 2000;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .leader-form-modal.active {
+            display: block;
+        }
+
+        .leader-form-modal h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .leader-preview {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border-radius: 10px;
+            border: 3px solid var(--primary);
+        }
+
+        /* Overlay */
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 1999;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero-content h1 {
@@ -1040,6 +1223,11 @@
             .media-container {
                 grid-template-columns: 1fr;
             }
+
+            .admin-dashboard {
+                top: 70px;
+                right: 10px;
+            }
         }
 
         @media (max-width: 576px) {
@@ -1078,7 +1266,7 @@
     <!-- Header -->
     <header id="header">
         <div class="logo-container">
-            <img src="logo.jpg" alt="Compower Society Logo" class="logo-img">
+            <img src="logo.jpg" alt="Compower Society Logo" class="logo-img" id="websiteLogo">
             <div class="logo-text">
                 <h1>Compower Society</h1>
                 <p>Building hope one act at a time</p>
@@ -1099,6 +1287,22 @@
             </ul>
         </nav>
     </header>
+
+    <!-- Admin Dashboard (shown after login) -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <h4>Admin Dashboard</h4>
+        <div class="admin-actions">
+            <button class="admin-btn" id="changeLogoBtn">
+                <i class="fas fa-image"></i> Change Logo
+            </button>
+            <button class="admin-btn" id="addLeaderBtn">
+                <i class="fas fa-user-plus"></i> Add Leader
+            </button>
+            <button class="admin-btn" id="logoutBtn">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+        </div>
+    </div>
 
     <!-- WhatsApp Float Button -->
     <a href="https://wa.me/254793482598" class="whatsapp-float" target="_blank">
@@ -1445,61 +1649,117 @@
             <p>Meet the team behind Compower Society and learn about our mission.</p>
         </div>
         <div class="about-content">
-            <div class="leaders-grid">
+            <div class="leaders-grid" id="leadersContainer">
                 <!-- Leader 1 -->
                 <div class="leader-card">
-                    <img src="leaders/leader1.jpg" alt="Leader 1" class="leader-img">
+                    <img src="leaders/leader1.jpg" alt="John Mwangi" class="leader-img">
                     <div class="leader-info">
                         <h3>John Mwangi</h3>
                         <p>Founder & Executive Director</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="1">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="1">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 2 -->
                 <div class="leader-card">
-                    <img src="leaders/leader2.jpg" alt="Leader 2" class="leader-img">
+                    <img src="leaders/leader2.jpg" alt="Sarah Wanjiku" class="leader-img">
                     <div class="leader-info">
                         <h3>Sarah Wanjiku</h3>
                         <p>Programs Director</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="2">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="2">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 3 -->
                 <div class="leader-card">
-                    <img src="leaders/leader3.jpg" alt="Leader 3" class="leader-img">
+                    <img src="leaders/leader3.jpg" alt="David Omondi" class="leader-img">
                     <div class="leader-info">
                         <h3>David Omondi</h3>
                         <p>Finance Director</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="3">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="3">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 4 -->
                 <div class="leader-card">
-                    <img src="leaders/leader4.jpg" alt="Leader 4" class="leader-img">
+                    <img src="leaders/leader4.jpg" alt="Grace Akinyi" class="leader-img">
                     <div class="leader-info">
                         <h3>Grace Akinyi</h3>
                         <p>Women Empowerment Coordinator</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="4">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="4">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 5 -->
                 <div class="leader-card">
-                    <img src="leaders/leader5.jpg" alt="Leader 5" class="leader-img">
+                    <img src="leaders/leader5.jpg" alt="Maryanne Atieno" class="leader-img">
                     <div class="leader-info">
                         <h3>Maryanne Atieno</h3>
                         <p>Youth Programs Manager</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="5">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="5">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 6 -->
                 <div class="leader-card">
-                    <img src="leaders/leader6.jpg" alt="Leader 6" class="leader-img">
+                    <img src="leaders/leader6.jpg" alt="Peter Kamau" class="leader-img">
                     <div class="leader-info">
                         <h3>Peter Kamau</h3>
                         <p>Community Outreach Coordinator</p>
                     </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="6">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="6">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 <!-- Leader 7 -->
                 <div class="leader-card">
-                    <img src="leaders/leader7.jpg" alt="Leader 7" class="leader-img">
+                    <img src="leaders/leader7.jpg" alt="James Mutua" class="leader-img">
                     <div class="leader-info">
                         <h3>James Mutua</h3>
                         <p>Volunteer Coordinator</p>
+                    </div>
+                    <div class="leader-admin-controls">
+                        <button class="leader-admin-btn edit" data-leader-id="7">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="leader-admin-btn delete" data-leader-id="7">
+                            <i class="fas fa-trash"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1678,6 +1938,56 @@
         </div>
     </div>
 
+    <!-- Logo Upload Form -->
+    <div class="logo-upload-form" id="logoUploadForm">
+        <h3>Change Website Logo</h3>
+        <img src="logo.jpg" alt="Current Logo" class="logo-preview" id="logoPreview">
+        <form id="logoForm">
+            <div class="form-group">
+                <label for="logoFile">Upload New Logo</label>
+                <input type="file" id="logoFile" accept="image/*" required>
+            </div>
+            <div class="admin-buttons">
+                <button type="submit" class="btn-admin">Update Logo</button>
+                <button type="button" class="btn-admin delete" id="cancelLogoUpload">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Leader Form Modal -->
+    <div class="leader-form-modal" id="leaderFormModal">
+        <h3 id="leaderFormTitle">Add New Leader</h3>
+        <img src="https://via.placeholder.com/200x200?text=Leader+Image" alt="Leader Preview" class="leader-preview" id="leaderPreview">
+        <form id="leaderForm">
+            <input type="hidden" id="leaderId">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="leaderName">Full Name</label>
+                    <input type="text" id="leaderName" required>
+                </div>
+                <div class="form-group">
+                    <label for="leaderPosition">Position</label>
+                    <input type="text" id="leaderPosition" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="leaderImage">Profile Image</label>
+                <input type="file" id="leaderImage" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="leaderBio">Bio (optional)</label>
+                <textarea id="leaderBio"></textarea>
+            </div>
+            <div class="admin-buttons">
+                <button type="submit" class="btn-admin" id="saveLeaderBtn">Save Leader</button>
+                <button type="button" class="btn-admin delete" id="cancelLeaderForm">Cancel</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Overlay for modals -->
+    <div class="overlay" id="overlay"></div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
@@ -1853,23 +2163,301 @@
             const loginModal = document.getElementById('loginModal');
             const adminLoginBtn = document.getElementById('adminLoginBtn');
             const closeModal = document.getElementById('closeModal');
+            const loginForm = document.getElementById('loginForm');
+            const adminDashboard = document.getElementById('adminDashboard');
+            const overlay = document.getElementById('overlay');
+
+            // Admin credentials (in a real app, this would be server-side)
+            const ADMIN_CREDENTIALS = {
+                email: "admin@compower.org",
+                password: "Compower2025"
+            };
 
             adminLoginBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 loginModal.style.display = 'flex';
-                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+                overlay.classList.add('active');
             });
 
             closeModal.addEventListener('click', function() {
                 loginModal.style.display = 'none';
                 document.body.style.overflow = 'auto';
+                overlay.classList.remove('active');
             });
 
-            window.addEventListener('click', function(e) {
-                if (e.target === loginModal) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                if (email === ADMIN_CREDENTIALS.email && password === ADMIN_CREDENTIALS.password) {
+                    // Successful login
                     loginModal.style.display = 'none';
+                    overlay.classList.remove('active');
                     document.body.style.overflow = 'auto';
+                    
+                    // Show admin dashboard
+                    adminDashboard.classList.add('active');
+                    
+                    // Show all admin controls
+                    document.querySelectorAll('.admin-controls').forEach(el => {
+                        el.style.display = 'block';
+                    });
+                    
+                    // Show admin controls on leader cards
+                    document.querySelectorAll('.leader-admin-controls').forEach(el => {
+                        el.style.display = 'flex';
+                    });
+                    
+                    // Change login button to logout
+                    adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                    
+                    alert('Login successful! You now have admin privileges.');
+                } else {
+                    alert('Invalid credentials. Please try again.');
                 }
+            });
+
+            // Logout functionality
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', function() {
+                adminDashboard.classList.remove('active');
+                document.querySelectorAll('.admin-controls').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Hide admin controls on leader cards
+                document.querySelectorAll('.leader-admin-controls').forEach(el => {
+                    el.style.display = 'none';
+                });
+                
+                // Reset login button
+                adminLoginBtn.innerHTML = 'Admin Login';
+                
+                alert('You have been logged out.');
+            });
+
+            // Logo Upload Functionality
+            const changeLogoBtn = document.getElementById('changeLogoBtn');
+            const logoUploadForm = document.getElementById('logoUploadForm');
+            const logoForm = document.getElementById('logoForm');
+            const logoPreview = document.getElementById('logoPreview');
+            const logoFileInput = document.getElementById('logoFile');
+            const cancelLogoUpload = document.getElementById('cancelLogoUpload');
+            const websiteLogo = document.getElementById('websiteLogo');
+
+            changeLogoBtn.addEventListener('click', function() {
+                logoUploadForm.classList.add('active');
+                overlay.classList.add('active');
+            });
+
+            cancelLogoUpload.addEventListener('click', function() {
+                logoUploadForm.classList.remove('active');
+                overlay.classList.remove('active');
+                logoForm.reset();
+            });
+
+            logoFileInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        logoPreview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            logoForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (logoFileInput.files.length > 0) {
+                    const file = logoFileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        // Update the website logo
+                        websiteLogo.src = event.target.result;
+                        
+                        // In a real app, you would upload this to your server
+                        alert('Logo updated successfully!');
+                        
+                        // Close the form
+                        logoUploadForm.classList.remove('active');
+                        overlay.classList.remove('active');
+                        logoForm.reset();
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    alert('Please select a logo file to upload.');
+                }
+            });
+
+            // Leader Management
+            const addLeaderBtn = document.getElementById('addLeaderBtn');
+            const leaderFormModal = document.getElementById('leaderFormModal');
+            const leaderForm = document.getElementById('leaderForm');
+            const leaderPreview = document.getElementById('leaderPreview');
+            const leaderImageInput = document.getElementById('leaderImage');
+            const cancelLeaderForm = document.getElementById('cancelLeaderForm');
+            const leadersContainer = document.getElementById('leadersContainer');
+            const leaderFormTitle = document.getElementById('leaderFormTitle');
+            const saveLeaderBtn = document.getElementById('saveLeaderBtn');
+            let currentLeaderId = null;
+
+            // Add new leader
+            addLeaderBtn.addEventListener('click', function() {
+                leaderFormTitle.textContent = 'Add New Leader';
+                leaderForm.reset();
+                leaderPreview.src = 'https://via.placeholder.com/200x200?text=Leader+Image';
+                currentLeaderId = null;
+                leaderFormModal.classList.add('active');
+                overlay.classList.add('active');
+            });
+
+            // Edit leader (delegated event)
+            leadersContainer.addEventListener('click', function(e) {
+                if (e.target.closest('.leader-admin-btn.edit')) {
+                    const leaderCard = e.target.closest('.leader-card');
+                    const leaderId = e.target.closest('.leader-admin-btn').getAttribute('data-leader-id');
+                    
+                    // Get leader details
+                    const leaderName = leaderCard.querySelector('h3').textContent;
+                    const leaderPosition = leaderCard.querySelector('p').textContent;
+                    const leaderImage = leaderCard.querySelector('img').src;
+                    
+                    // Populate form
+                    document.getElementById('leaderName').value = leaderName;
+                    document.getElementById('leaderPosition').value = leaderPosition;
+                    leaderPreview.src = leaderImage;
+                    document.getElementById('leaderId').value = leaderId;
+                    leaderFormTitle.textContent = 'Edit Leader';
+                    currentLeaderId = leaderId;
+                    
+                    // Show form
+                    leaderFormModal.classList.add('active');
+                    overlay.classList.add('active');
+                }
+                
+                // Delete leader
+                if (e.target.closest('.leader-admin-btn.delete')) {
+                    if (confirm('Are you sure you want to delete this leader?')) {
+                        const leaderCard = e.target.closest('.leader-card');
+                        leaderCard.remove();
+                        // In a real app, you would also delete from the database
+                        alert('Leader deleted successfully!');
+                    }
+                }
+            });
+
+            // Preview leader image
+            leaderImageInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        leaderPreview.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Cancel leader form
+            cancelLeaderForm.addEventListener('click', function() {
+                leaderFormModal.classList.remove('active');
+                overlay.classList.remove('active');
+                leaderForm.reset();
+            });
+
+            // Save leader
+            leaderForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('leaderName').value;
+                const position = document.getElementById('leaderPosition').value;
+                const bio = document.getElementById('leaderBio').value;
+                const imageFile = document.getElementById('leaderImage').files[0];
+                
+                if (currentLeaderId) {
+                    // Edit existing leader
+                    const leaderCard = document.querySelector(`.leader-admin-btn.edit[data-leader-id="${currentLeaderId}"]`).closest('.leader-card');
+                    leaderCard.querySelector('h3').textContent = name;
+                    leaderCard.querySelector('p').textContent = position;
+                    
+                    if (imageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            leaderCard.querySelector('img').src = event.target.result;
+                        };
+                        reader.readAsDataURL(imageFile);
+                    }
+                    
+                    alert('Leader updated successfully!');
+                } else {
+                    // Add new leader
+                    const leaderId = Date.now(); // Unique ID
+                    const leaderCard = document.createElement('div');
+                    leaderCard.className = 'leader-card';
+                    
+                    let imageSrc = 'https://via.placeholder.com/300x350?text=Leader+Image';
+                    if (imageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            imageSrc = event.target.result;
+                            leaderCard.innerHTML = `
+                                <img src="${imageSrc}" alt="${name}" class="leader-img">
+                                <div class="leader-info">
+                                    <h3>${name}</h3>
+                                    <p>${position}</p>
+                                </div>
+                                <div class="leader-admin-controls">
+                                    <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                            leadersContainer.appendChild(leaderCard);
+                        };
+                        reader.readAsDataURL(imageFile);
+                    } else {
+                        leaderCard.innerHTML = `
+                            <img src="${imageSrc}" alt="${name}" class="leader-img">
+                            <div class="leader-info">
+                                <h3>${name}</h3>
+                                <p>${position}</p>
+                            </div>
+                            <div class="leader-admin-controls">
+                                <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        `;
+                        leadersContainer.appendChild(leaderCard);
+                    }
+                    
+                    alert('Leader added successfully!');
+                }
+                
+                // Close the form
+                leaderFormModal.classList.remove('active');
+                overlay.classList.remove('active');
+                leaderForm.reset();
+            });
+
+            // Close modals when clicking outside
+            overlay.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+                logoUploadForm.classList.remove('active');
+                leaderFormModal.classList.remove('active');
+                overlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
             });
 
             // Toggle between YouTube and direct video upload fields
