@@ -3,42 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Compower Society - Building hope one act at a time</title>
+    <title>Compower Society - Building Hope Through Action</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <style>
         :root {
-            --primary-color: dodgerblue;
-            --secondary-color: #f8f9fa;
-            --text-color: #333;
-            --light-text: #fff;
-            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --primary: #1e88e5;  /* Vibrant blue */
+            --secondary: #ff6d00; /* Warm orange */
+            --accent: #4caf50;   /* Fresh green */
+            --dark: #263238;     /* Dark blue-gray */
+            --light: #f5f5f5;    /* Light background */
+            --text: #333333;    /* Main text */
+            --text-light: #757575; /* Secondary text */
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Poppins', 'Segoe UI', sans-serif;
         }
 
         body {
-            color: var(--text-color);
-            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
         }
 
         /* Header Styles */
         header {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), #1565c0);
+            color: var(--white);
+            padding: 1.5rem 5%;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            box-shadow: var(--shadow);
-            position: sticky;
+            position: fixed;
             top: 0;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        header.scrolled {
+            padding: 1rem 5%;
+            background: rgba(30, 136, 229, 0.95);
+            backdrop-filter: blur(10px);
         }
 
         .logo-container {
@@ -47,259 +75,396 @@
             gap: 1rem;
         }
 
-        .logo-image {
+        .logo-img {
             width: 60px;
             height: 60px;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid white;
+            border: 3px solid var(--white);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .logo-img:hover {
+            transform: rotate(15deg);
         }
 
         .logo-text h1 {
             font-size: 1.8rem;
+            margin-bottom: 0.2rem;
             font-weight: 700;
+            background: linear-gradient(to right, var(--white), #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .logo-text p {
             font-size: 0.9rem;
-            font-style: italic;
+            opacity: 0.9;
+            font-weight: 300;
         }
 
         /* Navigation */
         nav ul {
             display: flex;
             list-style: none;
-            gap: 1.5rem;
+            gap: 2rem;
         }
 
         nav a {
-            color: var(--light-text);
+            color: var(--white);
             text-decoration: none;
             font-weight: 500;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            transition: background-color 0.3s;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 1.05rem;
         }
 
         nav a:hover {
-            background-color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--white);
+            transition: var(--transition);
+        }
+
+        nav a:hover::after {
+            width: 100%;
         }
 
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            color: var(--light-text);
-            font-size: 1.5rem;
+            color: var(--white);
+            font-size: 1.8rem;
             cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* WhatsApp Float Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            z-index: 999;
+            transition: var(--transition);
+            animation: pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) translateY(-5px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('hero-bg.jpg');
+            height: 100vh;
+            min-height: 800px;
+            background: linear-gradient(rgba(30, 136, 229, 0.85), rgba(21, 101, 192, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            background-attachment: fixed;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            color: var(--light-text);
-            padding: 0 2rem;
+            color: var(--white);
+            padding: 0 5%;
+            margin-top: -80px;
+            padding-top: 80px;
         }
 
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .hero p {
-            font-size: 1.2rem;
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
             max-width: 800px;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+            margin-left: auto;
+            margin-right: auto;
+            opacity: 0.9;
         }
 
         .btn {
             display: inline-block;
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 0.8rem 1.8rem;
-            border-radius: 30px;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--shadow);
         }
 
         .btn:hover {
-            background-color: #1a73e8;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(-5px);
         }
 
-        /* Sections */
+        .btn-primary {
+            background-color: var(--white);
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            background-color: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--white);
+        }
+
+        .btn-secondary:hover {
+            background-color: transparent;
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        /* Section Styles */
         section {
-            padding: 5rem 2rem;
+            padding: 8rem 5%;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
-            margin-bottom: 3rem;
-            color: var(--primary-color);
-            font-size: 2.5rem;
+            margin-bottom: 5rem;
             position: relative;
         }
 
-        .section-title::after {
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title h2::after {
             content: '';
-            display: block;
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background-color: var(--primary-color);
-            margin: 1rem auto 0;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* Collaborations Section */
         .collaborations {
-            background-color: var(--secondary-color);
+            background-color: var(--white);
         }
 
-        .collab-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .collaboration-options {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 4rem;
         }
 
-        .collab-btn {
-            background-color: var(--primary-color);
+        .option-btn {
+            background-color: var(--primary);
             color: white;
-            padding: 1rem 2rem;
             border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
             cursor: pointer;
-            margin-bottom: 2rem;
-            transition: all 0.3s;
-        }
-
-        .collab-btn:hover {
-            background-color: #1a73e8;
-            transform: scale(1.05);
-        }
-
-        .collab-options {
-            display: none;
-            flex-direction: column;
-            gap: 1rem;
-            width: 100%;
-            max-width: 800px;
-        }
-
-        .collab-option {
-            background-color: white;
-            padding: 1.5rem;
-            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: var(--transition);
             box-shadow: var(--shadow);
-            cursor: pointer;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
         }
 
-        .collab-option:hover {
+        .option-btn i {
+            font-size: 1.3rem;
+        }
+
+        .option-btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            background-color: var(--secondary);
         }
 
-        .collab-option h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
-        }
-
-        .form-container, .donate-container {
-            display: none;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-            margin-top: 2rem;
-            width: 100%;
+        .collaboration-form {
             max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: none;
+            border-top: 5px solid var(--primary);
+        }
+
+        .collaboration-form.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         .form-group label {
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            color: var(--dark);
         }
 
-        .form-group input, 
-        .form-group select, 
+        .form-group input,
+        .form-group select,
         .form-group textarea {
             width: 100%;
-            padding: 0.8rem;
+            padding: 1rem;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 8px;
             font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(30, 136, 229, 0.2);
+            outline: none;
         }
 
         .form-group textarea {
-            min-height: 120px;
+            height: 150px;
+            resize: vertical;
         }
 
-        .submit-btn {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: background-color 0.3s;
+        .donation-options {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
         }
 
-        .submit-btn:hover {
-            background-color: #1a73e8;
+        .donation-options.active {
+            display: block;
+            animation: fadeIn 0.6s ease;
         }
 
-        .donate-method {
+        .donation-method {
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
             margin-bottom: 2rem;
+            border-top: 5px solid var(--accent);
+            transition: var(--transition);
         }
 
-        .donate-method h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+        .donation-method:hover {
+            transform: translateY(-10px);
         }
 
-        .donate-method p {
-            margin-bottom: 1rem;
+        .donation-method h3 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .donation-method p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .donation-method .highlight {
+            background-color: #E3F2FD;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
         .contact-options {
             display: flex;
+            flex-direction: column;
             gap: 1rem;
-            margin-top: 1rem;
+            margin-top: 2rem;
         }
 
-        .contact-option {
+        .contact-options a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--primary-color);
+            justify-content: center;
+            gap: 0.8rem;
+        }
+
+        .contact-options a:hover {
+            color: var(--secondary);
+        }
+
+        .contact-options i {
+            font-size: 1.3rem;
         }
 
         /* Events Section */
         .events {
-            background-color: white;
+            background-color: var(--light);
         }
 
         .events-container {
@@ -310,21 +475,26 @@
         .swiper {
             width: 100%;
             height: 500px;
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
 
         .swiper-slide {
-            display: flex;
-            justify-content: center;
-            align-items: center;
             position: relative;
+            overflow: hidden;
         }
 
         .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            transition: transform 0.5s ease;
+        }
+
+        .swiper-slide:hover img {
+            transform: scale(1.05);
         }
 
         .slide-caption {
@@ -332,170 +502,360 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.7);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
             color: white;
-            padding: 1rem;
-            border-bottom-left-radius: 8px;
-            border-bottom-right-radius: 8px;
+            padding: 2rem;
+            transform: translateY(100%);
+            transition: var(--transition);
         }
 
-        .upcoming-events {
+        .swiper-slide:hover .slide-caption {
+            transform: translateY(0);
+        }
+
+        .slide-caption h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .slide-caption p {
+            opacity: 0.9;
+        }
+
+        .swiper-pagination-bullet {
+            background: var(--white);
+            opacity: 0.7;
+            width: 12px;
+            height: 12px;
+            transition: var(--transition);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--secondary);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .swiper-button-next,
+        .swiper-button-prev {
+            color: var(--white);
+            background: rgba(0, 0, 0, 0.3);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .swiper-button-next:hover,
+        .swiper-button-prev:hover {
+            background: rgba(0, 0, 0, 0.6);
+        }
+
+        /* Video and Documentary Section */
+        .media-section {
+            background-color: var(--white);
+        }
+
+        .media-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
             margin-top: 3rem;
         }
 
-        .event-card {
-            background-color: var(--secondary-color);
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
+        .media-card {
+            background: var(--light);
+            border-radius: 15px;
+            overflow: hidden;
             box-shadow: var(--shadow);
+            transition: var(--transition);
         }
 
-        .event-card h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        .media-card:hover {
+            transform: translateY(-10px);
         }
 
-        .event-date {
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
         }
 
-        .admin-controls {
-            margin-top: 2rem;
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .media-info {
             padding: 1.5rem;
-            background-color: #f0f0f0;
-            border-radius: 8px;
-            display: none;
         }
 
-        .admin-controls h3 {
-            color: var(--primary-color);
+        .media-info h3 {
+            color: var(--primary);
             margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .media-info p {
+            color: var(--text-light);
+        }
+
+        /* Admin Controls */
+        .admin-controls {
+            display: none;
+            background: var(--light);
+            padding: 3rem;
+            border-radius: 15px;
+            margin-top: 5rem;
+            box-shadow: var(--shadow);
+            border-top: 5px solid var(--secondary);
+        }
+
+        .admin-section-title {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+
+        .event-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .admin-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .btn-admin {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .btn-admin:hover {
+            background-color: var(--secondary);
+            transform: translateY(-3px);
+        }
+
+        .btn-admin.delete {
+            background-color: #e53935;
+        }
+
+        .btn-admin.delete:hover {
+            background-color: #c62828;
         }
 
         /* About Section */
         .about {
-            background-color: var(--secondary-color);
+            background: linear-gradient(to bottom, var(--light), var(--white));
         }
 
-        .about-container {
+        .about-content {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 5rem;
         }
 
-        .leaders {
+        .leaders-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 3rem;
             margin-bottom: 3rem;
         }
 
         .leader-card {
-            background-color: white;
-            border-radius: 8px;
+            background-color: var(--white);
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: transform 0.3s;
+            transition: var(--transition);
+            text-align: center;
         }
 
         .leader-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
         }
 
         .leader-img {
             width: 100%;
-            height: 300px;
+            height: 350px;
             object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .leader-card:hover .leader-img {
+            transform: scale(1.05);
         }
 
         .leader-info {
-            padding: 1.5rem;
+            padding: 2rem;
         }
 
         .leader-info h3 {
-            color: var(--primary-color);
+            color: var(--primary);
             margin-bottom: 0.5rem;
+            font-size: 1.5rem;
         }
 
         .leader-info p {
-            color: #666;
+            font-style: italic;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .leader-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .leader-social a {
+            color: var(--primary);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .leader-social a:hover {
+            color: var(--secondary);
+            transform: translateY(-3px);
         }
 
         .about-details {
             display: none;
-            background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
+            background-color: var(--white);
+            padding: 3rem;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            margin-top: 2rem;
+            animation: fadeIn 0.6s ease;
         }
 
-        .about-section {
+        .about-details.active {
+            display: block;
+        }
+
+        .about-details h3 {
+            color: var(--primary);
+            margin: 2.5rem 0 1.5rem;
+            font-size: 1.8rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .about-details h3:first-child {
+            margin-top: 0;
+        }
+
+        .about-details h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--secondary);
+        }
+
+        .about-details p {
+            margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+
+        .about-details ul {
+            margin-left: 2rem;
             margin-bottom: 2rem;
         }
 
-        .about-section h3 {
-            color: var(--primary-color);
-            margin-bottom: 1rem;
+        .about-details li {
+            margin-bottom: 0.8rem;
+            color: var(--text-light);
         }
 
         /* Contact Section */
         .contact {
-            background-color: white;
+            background-color: var(--white);
         }
 
         .contact-container {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 5rem;
         }
 
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 2.5rem;
         }
 
         .contact-item {
             display: flex;
-            align-items: center;
-            gap: 1rem;
+            align-items: flex-start;
+            gap: 1.5rem;
         }
 
         .contact-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-top: 0.3rem;
+            flex-shrink: 0;
         }
 
         .contact-text h3 {
-            color: var(--primary-color);
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .contact-text p {
+            color: var(--text-light);
         }
 
         .contact-form {
-            background-color: var(--secondary-color);
-            padding: 2rem;
-            border-radius: 8px;
+            background-color: var(--light);
+            padding: 3rem;
+            border-radius: 15px;
             box-shadow: var(--shadow);
+            border-top: 5px solid var(--accent);
+        }
+
+        .contact-form h3 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+            text-align: center;
         }
 
         /* Footer */
         footer {
-            background-color: var(--primary-color);
-            color: var(--light-text);
-            padding: 3rem 2rem;
-            text-align: center;
+            background: linear-gradient(135deg, var(--dark), #000);
+            color: var(--white);
+            padding: 5rem 5% 3rem;
         }
 
         .footer-content {
@@ -503,25 +863,25 @@
             margin: 0 auto;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            text-align: left;
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
 
         .footer-column h3 {
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            font-size: 1.5rem;
             position: relative;
-            display: inline-block;
+            padding-bottom: 0.8rem;
         }
 
         .footer-column h3::after {
             content: '';
             position: absolute;
-            bottom: -8px;
+            bottom: 0;
             left: 0;
             width: 50px;
-            height: 2px;
-            background-color: white;
+            height: 3px;
+            background: var(--secondary);
         }
 
         .footer-column ul {
@@ -529,47 +889,55 @@
         }
 
         .footer-column li {
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
         }
 
         .footer-column a {
-            color: var(--light-text);
+            color: rgba(255, 255, 255, 0.8);
             text-decoration: none;
-            transition: color 0.3s;
+            transition: var(--transition);
+            display: block;
+            padding: 0.3rem 0;
         }
 
         .footer-column a:hover {
-            color: #ddd;
+            color: var(--white);
+            transform: translateX(5px);
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
 
         .social-links a {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            background-color: rgba(255, 255, 255, 0.2);
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
-            transition: background-color 0.3s;
+            color: var(--white);
+            font-size: 1.3rem;
+            transition: var(--transition);
         }
 
         .social-links a:hover {
-            background-color: rgba(255, 255, 255, 0.3);
+            background: var(--primary);
+            transform: translateY(-5px);
         }
 
         .copyright {
             margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
         }
 
-        /* Modal */
+        /* Login Modal */
         .modal {
             display: none;
             position: fixed;
@@ -577,120 +945,157 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
             justify-content: center;
             align-items: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal-content {
             background-color: white;
-            padding: 2rem;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
+            padding: 3rem;
+            border-radius: 15px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             position: relative;
+            animation: modalFadeIn 0.4s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .modal h2 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
         }
 
         .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            font-size: 1.5rem;
+            top: 1.5rem;
+            right: 1.5rem;
+            font-size: 1.8rem;
             cursor: pointer;
-            color: #666;
+            color: var(--text-light);
+            transition: var(--transition);
         }
 
-        /* Admin Login */
-        .login-container {
-            max-width: 400px;
-            margin: 5rem auto;
-            padding: 2rem;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: var(--shadow);
-        }
-
-        .login-container h2 {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            text-align: center;
+        .close-modal:hover {
+            color: var(--secondary);
+            transform: rotate(90deg);
         }
 
         /* Responsive Styles */
         @media (max-width: 992px) {
-            .contact-container {
-                grid-template-columns: 1fr;
+            .hero-content h1 {
+                font-size: 3.2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.4rem;
+            }
+            
+            .leader-img {
+                height: 300px;
             }
         }
 
         @media (max-width: 768px) {
             header {
-                flex-direction: column;
-                padding: 1rem;
-                text-align: center;
+                padding: 1rem 5%;
             }
-
-            .logo-container {
-                margin-bottom: 1rem;
-            }
-
-            nav {
-                width: 100%;
-            }
-
-            nav ul {
-                flex-direction: column;
-                gap: 0.5rem;
-                display: none;
-            }
-
-            nav ul.show {
-                display: flex;
-            }
-
+            
             .mobile-menu-btn {
                 display: block;
-                position: absolute;
-                top: 1rem;
-                right: 1rem;
             }
-
-            .hero h1 {
+            
+            nav ul {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                max-width: 300px;
+                height: 100vh;
+                background: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+                transition: var(--transition);
+                z-index: 1000;
+            }
+            
+            nav ul.active {
+                right: 0;
+            }
+            
+            .hero {
+                min-height: 700px;
+            }
+            
+            .hero-content h1 {
                 font-size: 2.5rem;
             }
-
-            .hero p {
-                font-size: 1rem;
+            
+            .hero-content p {
+                font-size: 1.1rem;
             }
-
-            .section-title {
+            
+            .section-title h2 {
                 font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .media-container {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 576px) {
-            .hero h1 {
+            .hero-content h1 {
                 font-size: 2rem;
             }
-
-            section {
-                padding: 3rem 1rem;
+            
+            .btn {
+                padding: 0.8rem 1.8rem;
+                font-size: 1rem;
             }
-
-            .swiper {
-                height: 300px;
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .collaboration-form,
+            .donation-method,
+            .contact-form {
+                padding: 2rem 1.5rem;
+            }
+            
+            .leader-img {
+                height: 250px;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="logo-container">
-            <img src="logo.jpg" alt="Compower Society Logo" class="logo-image" id="logoImage">
+            <img src="COMPOWERSOCIETYLOGO.jpg" alt="Compower Society Logo" class="logo-img">
             <div class="logo-text">
                 <h1>Compower Society</h1>
                 <p>Building hope one act at a time</p>
@@ -704,146 +1109,169 @@
                 <li><a href="#home">Home</a></li>
                 <li><a href="#collaborations">Collaborations</a></li>
                 <li><a href="#events">Events</a></li>
+                <li><a href="#media">Media</a></li>
                 <li><a href="#about">About Us</a></li>
                 <li><a href="#contact">Contact Us</a></li>
-                <li><a href="#" id="adminLoginLink">Admin Login</a></li>
+                <li><a href="#" id="adminLoginBtn">Admin Login</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/254793482598" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <h1>Empowering Lives</h1>
-        <p>Join us in creating lasting change by supporting our programs</p>
-        <a href="#collaborations" class="btn">GET INVOLVED</a>
+        <div class="hero-content">
+            <h1>Empowering Lives Through Compassion</h1>
+            <p>Join us in creating lasting change by supporting our programs that uplift communities, empower youth and women, and bring hope to the vulnerable.</p>
+            <div class="hero-buttons">
+                <a href="#collaborations" class="btn btn-primary">GET INVOLVED</a>
+                <a href="#about" class="btn btn-secondary">LEARN MORE</a>
+            </div>
+        </div>
     </section>
 
     <!-- Collaborations Section -->
     <section class="collaborations" id="collaborations">
-        <h2 class="section-title">Collaborations</h2>
-        <div class="collab-container">
-            <button class="collab-btn" id="collabBtn">Want to be part of us?</button>
-            <div class="collab-options" id="collabOptions">
-                <div class="collab-option" data-option="partners">
-                    <h3>Partners</h3>
-                    <p>Join us as a partner organization and work together to make a difference.</p>
-                </div>
-                <div class="collab-option" data-option="sponsors">
-                    <h3>Sponsors</h3>
-                    <p>Support our initiatives through sponsorship and help us reach more people.</p>
-                </div>
-                <div class="collab-option" data-option="donate">
-                    <h3>Donate</h3>
-                    <p>Contribute financially or through material donations to support our cause.</p>
-                </div>
-            </div>
+        <div class="section-title">
+            <h2>Collaborate With Us</h2>
+            <p>Together we can make a greater impact. Choose how you'd like to support our mission.</p>
+        </div>
+        <div class="collaboration-options">
+            <button class="option-btn" data-target="partnerForm">
+                <i class="fas fa-handshake"></i> Partners
+            </button>
+            <button class="option-btn" data-target="sponsorForm">
+                <i class="fas fa-hands-helping"></i> Sponsors
+            </button>
+            <button class="option-btn" data-target="donationOptions">
+                <i class="fas fa-donate"></i> Donate
+            </button>
+        </div>
 
-            <!-- Partners Form -->
-            <div class="form-container" id="partnersForm">
-                <h3>Partnership Application</h3>
-                <form id="partnerForm">
+        <!-- Partner Form -->
+        <div class="collaboration-form" id="partnerForm">
+            <h3>Become a Partner</h3>
+            <form id="partnerFormData">
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="partnerName">Organization Name</label>
+                        <label for="partnerName">Full Name</label>
                         <input type="text" id="partnerName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="partnerContact">Contact Person</label>
-                        <input type="text" id="partnerContact" required>
                     </div>
                     <div class="form-group">
                         <label for="partnerEmail">Email</label>
                         <input type="email" id="partnerEmail" required>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="partnerPhone">Phone</label>
+                        <label for="partnerPhone">Phone Number</label>
                         <input type="tel" id="partnerPhone" required>
                     </div>
                     <div class="form-group">
-                        <label for="partnerType">Type of Organization</label>
-                        <select id="partnerType" required>
-                            <option value="">Select type</option>
-                            <option value="NGO">NGO</option>
-                            <option value="Corporate">Corporate</option>
-                            <option value="Government">Government</option>
-                            <option value="Religious">Religious</option>
-                            <option value="Educational">Educational</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <label for="partnerOrg">Organization (if any)</label>
+                        <input type="text" id="partnerOrg">
                     </div>
-                    <div class="form-group">
-                        <label for="partnerDetails">Tell us about your organization and how you'd like to collaborate</label>
-                        <textarea id="partnerDetails" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Submit Application</button>
-                </form>
-            </div>
+                </div>
+                <div class="form-group">
+                    <label for="partnerInterest">Area of Interest</label>
+                    <select id="partnerInterest" required>
+                        <option value="">Select an option</option>
+                        <option value="youth">Youth Empowerment</option>
+                        <option value="women">Women Empowerment</option>
+                        <option value="children">Children Support</option>
+                        <option value="education">Education</option>
+                        <option value="health">Health Awareness</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="partnerMessage">Why do you want to partner with us?</label>
+                    <textarea id="partnerMessage" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        </div>
 
-            <!-- Sponsors Form -->
-            <div class="form-container" id="sponsorsForm">
-                <h3>Sponsorship Application</h3>
-                <form id="sponsorForm">
+        <!-- Sponsor Form -->
+        <div class="collaboration-form" id="sponsorForm">
+            <h3>Become a Sponsor</h3>
+            <form id="sponsorFormData">
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="sponsorName">Name/Organization</label>
+                        <label for="sponsorName">Full Name</label>
                         <input type="text" id="sponsorName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="sponsorContact">Contact Person</label>
-                        <input type="text" id="sponsorContact" required>
                     </div>
                     <div class="form-group">
                         <label for="sponsorEmail">Email</label>
                         <input type="email" id="sponsorEmail" required>
                     </div>
+                </div>
+                <div class="form-row">
                     <div class="form-group">
-                        <label for="sponsorPhone">Phone</label>
+                        <label for="sponsorPhone">Phone Number</label>
                         <input type="tel" id="sponsorPhone" required>
                     </div>
                     <div class="form-group">
-                        <label for="sponsorType">Type of Sponsorship</label>
-                        <select id="sponsorType" required>
-                            <option value="">Select type</option>
-                            <option value="Financial">Financial</option>
-                            <option value="Material">Material Goods</option>
-                            <option value="Services">Services</option>
-                            <option value="Other">Other</option>
-                        </select>
+                        <label for="sponsorOrg">Organization (if any)</label>
+                        <input type="text" id="sponsorOrg">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="sponsorType">Type of Sponsorship</label>
+                    <select id="sponsorType" required>
+                        <option value="">Select an option</option>
+                        <option value="financial">Financial</option>
+                        <option value="goods">Goods/Products</option>
+                        <option value="services">Services</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="sponsorAmount">Estimated Sponsorship Value (KES)</label>
+                        <input type="number" id="sponsorAmount">
                     </div>
                     <div class="form-group">
-                        <label for="sponsorDetails">Tell us about your sponsorship interest</label>
-                        <textarea id="sponsorDetails" required></textarea>
+                        <label for="sponsorDuration">Preferred Duration</label>
+                        <select id="sponsorDuration">
+                            <option value="one-time">One-time</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="annual">Annual</option>
+                        </select>
                     </div>
-                    <button type="submit" class="submit-btn">Submit Application</button>
-                </form>
-            </div>
-
-            <!-- Donate Options -->
-            <div class="donate-container" id="donateOptions">
-                <h3>Donation Options</h3>
-                
-                <div class="donate-method">
-                    <h4>Financial Donations</h4>
-                    <p>You can send money through MPESA:</p>
-                    <p><strong>Send money to MPESA No.: 0793482598</strong></p>
-                    <p>Please include your name as the reference.</p>
                 </div>
-                
-                <div class="donate-method">
-                    <h4>Material Donations</h4>
-                    <p>For donations of clothes, food, or other items, please contact us through:</p>
-                    <div class="contact-options">
-                        <div class="contact-option">
-                            <i class="fas fa-envelope"></i>
-                            <span>compower39@gmail.com</span>
-                        </div>
-                        <div class="contact-option">
-                            <i class="fas fa-sms"></i>
-                            <span>SMS: 0793482598</span>
-                        </div>
-                        <div class="contact-option">
-                            <i class="fas fa-phone"></i>
-                            <span>Call: 0793482598</span>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <label for="sponsorMessage">Additional Information</label>
+                    <textarea id="sponsorMessage"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Application</button>
+            </form>
+        </div>
+
+        <!-- Donation Options -->
+        <div class="donation-options" id="donationOptions">
+            <div class="donation-method">
+                <h3>Financial Donations</h3>
+                <p>Your financial support helps us continue our programs and reach more people in need.</p>
+                <div class="highlight">
+                    Send money to MPESA No.: <strong>0793482598</strong>
+                </div>
+                <p>Please include your name as the reference so we can acknowledge your donation.</p>
+            </div>
+            <div class="donation-method">
+                <h3>Material Donations</h3>
+                <p>We accept donations of clothes, food, sanitary products, school supplies, and other essential items.</p>
+                <p>Your in-kind donations make a direct impact on the lives of those we serve.</p>
+                <div class="contact-options">
+                    <p>Contact us to arrange for drop-off or pickup:</p>
+                    <a href="mailto:compower39@gmail.com"><i class="fas fa-envelope"></i> compower39@gmail.com</a>
+                    <a href="sms:0793482598"><i class="fas fa-sms"></i> SMS: 0793482598</a>
+                    <a href="tel:0793482598"><i class="fas fa-phone"></i> Call: 0793482598</a>
                 </div>
             </div>
         </div>
@@ -851,57 +1279,159 @@
 
     <!-- Events Section -->
     <section class="events" id="events">
-        <h2 class="section-title">Our Events</h2>
+        <div class="section-title">
+            <h2>Our Events</h2>
+            <p>See the impact we've made through our various programs and initiatives.</p>
+        </div>
         <div class="events-container">
-            <h3>Past Events</h3>
+            <!-- Past Events Slider -->
             <div class="swiper">
-                <div class="swiper-wrapper" id="pastEventsSwiper">
-                    <!-- Past events will be added here dynamically -->
+                <div class="swiper-wrapper" id="pastEvents">
+                    <!-- Event 1 -->
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1524179091875-bf99a9a9a57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Pad Drive Event">
+                        <div class="slide-caption">
+                            <h3>Pad Drive 2024</h3>
+                            <p>March 15, 2024 • Olkalau</p>
+                            <p>Distribution of sanitary pads to schoolgirls in rural areas to promote menstrual health and education.</p>
+                        </div>
+                    </div>
+                    <!-- Event 2 -->
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Children's Home Visit">
+                        <div class="slide-caption">
+                            <h3>Children's Home Visit</h3>
+                            <p>December 10, 2023 • Heaven's Eye Children Home</p>
+                            <p>Bringing joy and essential supplies to children in need during the holiday season.</p>
+                        </div>
+                    </div>
+                    <!-- Event 3 -->
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Youth Empowerment Workshop">
+                        <div class="slide-caption">
+                            <h3>Youth Empowerment Workshop</h3>
+                            <p>August 22, 2023 • Nyahururu</p>
+                            <p>Skills training and mentorship program for local youth to become community leaders.</p>
+                        </div>
+                    </div>
+                    <!-- Event 4 -->
+                    <div class="swiper-slide">
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Community Clean-up">
+                        <div class="slide-caption">
+                            <h3>Community Clean-up</h3>
+                            <p>June 5, 2023 • Laikipia County</p>
+                            <p>Bringing the community together to clean and beautify our environment.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="swiper-pagination"></div>
                 <div class="swiper-button-prev"></div>
                 <div class="swiper-button-next"></div>
             </div>
 
-            <div class="upcoming-events">
-                <h3>Upcoming Events</h3>
-                <div id="upcomingEventsList">
-                    <!-- Upcoming events will be added here dynamically -->
+            <!-- Admin Controls (visible after login) -->
+            <div class="admin-controls" id="eventAdminControls">
+                <h3 class="admin-section-title">Manage Events</h3>
+                <div class="event-form">
+                    <form id="eventForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventTitle">Event Title</label>
+                                <input type="text" id="eventTitle" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventDate">Event Date</label>
+                                <input type="date" id="eventDate" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventLocation">Location</label>
+                                <input type="text" id="eventLocation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventImageUrl">Image URL</label>
+                                <input type="url" id="eventImageUrl" required placeholder="https://example.com/image.jpg">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea id="eventDescription" required></textarea>
+                        </div>
+                        <div class="admin-buttons">
+                            <button type="submit" class="btn-admin">Add Event</button>
+                            <button type="button" class="btn-admin delete" id="clearEventForm">Clear Form</button>
+                        </div>
+                    </form>
+                </div>
+
+                <h3 class="admin-section-title" style="margin-top: 3rem;">Current Events</h3>
+                <div class="event-list" id="adminEventList">
+                    <!-- Events will be listed here for admin to manage -->
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Admin Controls (visible only to admins) -->
-            <div class="admin-controls" id="eventsAdminControls">
-                <h3>Admin Controls</h3>
-                <button class="btn" id="addEventBtn">Add New Event</button>
-                
-                <form id="addEventForm" style="display: none; margin-top: 1rem;">
+    <!-- Media Section -->
+    <section class="media-section" id="media">
+        <div class="section-title">
+            <h2>Our Media</h2>
+            <p>Watch our impactful work through videos and documentaries.</p>
+        </div>
+        <div class="media-container">
+            <!-- Video Section -->
+            <div class="media-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="media-info">
+                    <h3>Recent Events Highlights</h3>
+                    <p>Watch our latest events and programs that are making a difference in communities across Kenya.</p>
+                </div>
+            </div>
+            
+            <!-- Documentary Section -->
+            <div class="media-card">
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+                <div class="media-info">
+                    <h3>Compower Society Documentary</h3>
+                    <p>Our journey of empowering communities and transforming lives through compassion and action.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Admin Controls for Media -->
+        <div class="admin-controls" id="mediaAdminControls">
+            <h3 class="admin-section-title">Manage Media</h3>
+            <div class="event-form">
+                <form id="mediaForm">
                     <div class="form-group">
-                        <label for="eventTitle">Event Title</label>
-                        <input type="text" id="eventTitle" required>
+                        <label for="mediaType">Media Type</label>
+                        <select id="mediaType" required>
+                            <option value="">Select media type</option>
+                            <option value="video">Event Video</option>
+                            <option value="documentary">Documentary</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="eventDate">Event Date</label>
-                        <input type="date" id="eventDate" required>
+                        <label for="mediaTitle">Title</label>
+                        <input type="text" id="mediaTitle" required>
                     </div>
                     <div class="form-group">
-                        <label for="eventLocation">Location</label>
-                        <input type="text" id="eventLocation" required>
+                        <label for="mediaUrl">YouTube Embed URL</label>
+                        <input type="url" id="mediaUrl" required placeholder="https://www.youtube.com/embed/VIDEO_ID">
                     </div>
                     <div class="form-group">
-                        <label for="eventDescription">Description</label>
-                        <textarea id="eventDescription" required></textarea>
+                        <label for="mediaDescription">Description</label>
+                        <textarea id="mediaDescription" required></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="eventImage">Event Image</label>
-                        <input type="file" id="eventImage" accept="image/*">
+                    <div class="admin-buttons">
+                        <button type="submit" class="btn-admin">Add Media</button>
+                        <button type="button" class="btn-admin delete" id="clearMediaForm">Clear Form</button>
                     </div>
-                    <div class="form-group">
-                        <label>
-                            <input type="checkbox" id="eventIsUpcoming"> Upcoming Event
-                        </label>
-                    </div>
-                    <button type="submit" class="submit-btn">Add Event</button>
                 </form>
             </div>
         </div>
@@ -909,68 +1439,149 @@
 
     <!-- About Us Section -->
     <section class="about" id="about">
-        <h2 class="section-title">About Us</h2>
-        <div class="about-container">
-            <div class="leaders">
+        <div class="section-title">
+            <h2>About Us</h2>
+            <p>Meet the team behind Compower Society and learn about our mission.</p>
+        </div>
+        <div class="about-content">
+            <div class="leaders-grid">
+                <!-- Leader 1 -->
                 <div class="leader-card">
-                    <img src="leader1.jpg" alt="Leader 1" class="leader-img" id="leaderImg1">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 1" class="leader-img">
                     <div class="leader-info">
-                        <h3>Leader Name 1</h3>
-                        <p>Position/Role</p>
+                        <h3>John Mwangi</h3>
+                        <p>Founder & Executive Director</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
+                <!-- Leader 2 -->
                 <div class="leader-card">
-                    <img src="leader2.jpg" alt="Leader 2" class="leader-img" id="leaderImg2">
+                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 2" class="leader-img">
                     <div class="leader-info">
-                        <h3>Leader Name 2</h3>
-                        <p>Position/Role</p>
+                        <h3>Sarah Wanjiku</h3>
+                        <p>Programs Director</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
+                <!-- Leader 3 -->
                 <div class="leader-card">
-                    <img src="leader3.jpg" alt="Leader 3" class="leader-img" id="leaderImg3">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Leader 3" class="leader-img">
                     <div class="leader-info">
-                        <h3>Leader Name 3</h3>
-                        <p>Position/Role</p>
+                        <h3>David Omondi</h3>
+                        <p>Finance Director</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Leader 4 -->
+                <div class="leader-card">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Leader 4" class="leader-img">
+                    <div class="leader-info">
+                        <h3>Grace Akinyi</h3>
+                        <p>Women Empowerment Coordinator</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Leader 5 -->
+                <div class="leader-card">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" alt="Leader 5" class="leader-img">
+                    <div class="leader-info">
+                        <h3>Maryanne Atieno</h3>
+                        <p>Youth Programs Manager</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Leader 6 -->
+                <div class="leader-card">
+                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="Leader 6" class="leader-img">
+                    <div class="leader-info">
+                        <h3>Peter Kamau</h3>
+                        <p>Community Outreach Coordinator</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <!-- Leader 7 -->
+                <div class="leader-card">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 7" class="leader-img">
+                    <div class="leader-info">
+                        <h3>James Mutua</h3>
+                        <p>Volunteer Coordinator</p>
+                        <div class="leader-social">
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button class="btn" id="learnMoreBtn">Learn More</button>
+            <button class="btn btn-primary" id="learnMoreBtn">Learn More About Our Mission</button>
 
             <div class="about-details" id="aboutDetails">
-                <div class="about-section">
-                    <h3>Mission</h3>
-                    <p>ComPower Society is a youth-led community-based foundation driven by a mission to empower, uplift, and transform lives across Kenya—starting from the grassroots. Founded with compassion and purpose, ComPower (short for Community Power) believes that real change begins with ordinary people coming together to serve humanity. Our work is rooted in the values of dignity, equity, and shared responsibility.</p>
-                </div>
+                <h3>Our Story</h3>
+                <p>ComPower Society is a youth-led community-based foundation driven by a mission to empower, uplift, and transform lives across Kenya—starting from the grassroots. Founded with compassion and purpose, ComPower (short for Community Power) believes that real change begins with ordinary people coming together to serve humanity. Our work is rooted in the values of dignity, equity, and shared responsibility.</p>
                 
-                <div class="about-section">
-                    <h3>Vision</h3>
-                    <p>At the heart of ComPower Society is the strong desire to support vulnerable and underprivileged groups, especially street children, orphans, and low-income families. We provide both direct assistance and long-term support through initiatives such as food drives, clothing donations, school outreach, and shelter visits. These efforts not only bring relief but restore hope in places where it's often lost.</p>
-                </div>
+                <h3>Mission</h3>
+                <p>At the heart of ComPower Society is the strong desire to support vulnerable and underprivileged groups, especially street children, orphans, and low-income families. We provide both direct assistance and long-term support through initiatives such as food drives, clothing donations, school outreach, and shelter visits. These efforts not only bring relief but restore hope in places where it's often lost.</p>
                 
-                <div class="about-section">
-                    <h3>Values</h3>
-                    <p>A key pillar of our organization is youth and women empowerment. We organize forums, training workshops, mentorship programs, and livelihood projects aimed at equipping young people and women with practical skills, knowledge, and confidence to become independent and impactful leaders in their communities.</p>
-                    <p>We also run seasonal campaigns such as the Pad Drive, where we distribute sanitary products to schoolgirls in rural and marginalized areas. This simple but powerful initiative helps to keep girls in school, fight stigma, and promote dignity in menstrual health. In 2025, we will hold a major Pad Drive in Olkalau, reaching hundreds of girls with not just pads, but also education and encouragement.</p>
-                    <p>ComPower is actively involved in visiting children's homes and special institutions, like the upcoming visit to Heaven's Eye Children Home in August 2025. These visits create moments of joy, care, and connection—reminding every child that they matter. During such visits, we deliver food, toiletries, and emotional support while also identifying areas where long-term help is needed.</p>
-                    <p>As a foundation, we believe in community engagement. We don't just deliver aid—we build networks of trust. Through clean-up campaigns, forums, school visits, and health awareness sessions, we bring people together to take ownership of their environment and social well-being. We empower individuals to be part of the solution.</p>
-                    <p>Partnerships play a big role in how we operate. ComPower Society seeks strong, lasting relationships with corporates, local leaders, churches, schools, and businesses who believe in collective impact. We are currently seeking partners to support and walk with us in our programs—financially, logistically, and through mentorship and visibility.</p>
-                    <p>We also run internal capacity-building by empowering our own members. Young volunteers are given roles in project planning, leadership, public speaking, and organizing events. This makes ComPower not just a charity group, but a training ground for the next generation of servant leaders in Kenya.</p>
-                    <p>ComPower Society is also guided by structure and accountability. We have a leadership board, committed members, and a growing network across different counties. Everything we do is documented and measured for impact, and we are working towards full registration and expansion across the country.</p>
-                    <p>In all our work, we hold firm to one motto: "Together for Humanity." Whether it's a simple meal, a pad, a warm hug, or an open door—we believe that small acts of love can change lives forever. That's the ComPower way.</p>
-                </div>
-
-                <div class="about-section">
-                    <h3>Thank You</h3>
-                    <p>We appreciate your interest in Compower Society and look forward to working together to make a difference in our communities.</p>
-                </div>
+                <h3>Vision</h3>
+                <p>A key pillar of our organization is youth and women empowerment. We organize forums, training workshops, mentorship programs, and livelihood projects aimed at equipping young people and women with practical skills, knowledge, and confidence to become independent and impactful leaders in their communities.</p>
+                
+                <h3>Our Programs</h3>
+                <p>We run seasonal campaigns such as the Pad Drive, where we distribute sanitary products to schoolgirls in rural and marginalized areas. This simple but powerful initiative helps to keep girls in school, fight stigma, and promote dignity in menstrual health. In 2025, we will hold a major Pad Drive in Olkalau, reaching hundreds of girls with not just pads, but also education and encouragement.</p>
+                
+                <p>ComPower is actively involved in visiting children's homes and special institutions, like the upcoming visit to Heaven's Eye Children Home in August 2025. These visits create moments of joy, care, and connection—reminding every child that they matter. During such visits, we deliver food, toiletries, and emotional support while also identifying areas where long-term help is needed.</p>
+                
+                <h3>Community Engagement</h3>
+                <p>As a foundation, we believe in community engagement. We don't just deliver aid—we build networks of trust. Through clean-up campaigns, forums, school visits, and health awareness sessions, we bring people together to take ownership of their environment and social well-being. We empower individuals to be part of the solution.</p>
+                
+                <h3>Partnerships</h3>
+                <p>Partnerships play a big role in how we operate. ComPower Society seeks strong, lasting relationships with corporates, local leaders, churches, schools, and businesses who believe in collective impact. We are currently seeking partners to support and walk with us in our programs—financially, logistically, and through mentorship and visibility.</p>
+                
+                <h3>Capacity Building</h3>
+                <p>We also run internal capacity-building by empowering our own members. Young volunteers are given roles in project planning, leadership, public speaking, and organizing events. This makes ComPower not just a charity group, but a training ground for the next generation of servant leaders in Kenya.</p>
+                
+                <h3>Structure & Accountability</h3>
+                <p>ComPower Society is also guided by structure and accountability. We have a leadership board, committed members, and a growing network across different counties. Everything we do is documented and measured for impact, and we are working towards full registration and expansion across the country.</p>
+                
+                <h3>Our Motto</h3>
+                <p>In all our work, we hold firm to one motto: "Together for Humanity." Whether it's a simple meal, a pad, a warm hug, or an open door—we believe that small acts of love can change lives forever. That's the ComPower way.</p>
+                
+                <h3>Thank You</h3>
+                <p>We appreciate your interest in our organization and look forward to working together to make a difference in our communities.</p>
             </div>
         </div>
     </section>
 
     <!-- Contact Us Section -->
     <section class="contact" id="contact">
-        <h2 class="section-title">Contact Us</h2>
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <p>Get in touch with us for collaborations, donations, or any inquiries.</p>
+        </div>
         <div class="contact-container">
             <div class="contact-info">
                 <div class="contact-item">
@@ -984,19 +1595,10 @@
                 </div>
                 <div class="contact-item">
                     <div class="contact-icon">
-                        <i class="fas fa-sms"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>SMS</h3>
-                        <p>0793482598</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
                         <i class="fas fa-phone"></i>
                     </div>
                     <div class="contact-text">
-                        <h3>Call</h3>
+                        <h3>Call/SMS</h3>
                         <p>0793482598</p>
                     </div>
                 </div>
@@ -1006,34 +1608,44 @@
                     </div>
                     <div class="contact-text">
                         <h3>Location</h3>
-                        <p>Nairobi, Kenya</p>
+                        <p>NYAHURURU, LAIKIPIA</p>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-text">
+                        <h3>Working Hours</h3>
+                        <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
+                        <p>Saturday: 9:00 AM - 1:00 PM</p>
                     </div>
                 </div>
             </div>
             <div class="contact-form">
-                <h3>Send us a message</h3>
-                <form id="contactForm">
+                <h3>Send Us a Message</h3>
+                <form id="messageForm">
                     <div class="form-group">
-                        <label for="contactName">Your Name</label>
-                        <input type="text" id="contactName" required>
+                        <label for="messageName">Your Name</label>
+                        <input type="text" id="messageName" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactEmail">Email</label>
-                        <input type="email" id="contactEmail" required>
+                        <label for="messageEmail">Your Email</label>
+                        <input type="email" id="messageEmail" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactPhone">Phone (optional)</label>
-                        <input type="tel" id="contactPhone">
+                        <label for="messagePhone">Phone Number (optional)</label>
+                        <input type="tel" id="messagePhone">
                     </div>
                     <div class="form-group">
-                        <label for="contactSubject">Subject</label>
-                        <input type="text" id="contactSubject" required>
+                        <label for="messageSubject">Subject</label>
+                        <input type="text" id="messageSubject" required>
                     </div>
                     <div class="form-group">
-                        <label for="contactMessage">Message</label>
-                        <textarea id="contactMessage" required></textarea>
+                        <label for="messageContent">Your Message</label>
+                        <textarea id="messageContent" required></textarea>
                     </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
                 </form>
             </div>
         </div>
@@ -1046,116 +1658,71 @@
                 <h3>About Compower</h3>
                 <ul>
                     <li><a href="#about">Our Mission</a></li>
-                    <li><a href="#about">Vision</a></li>
-                    <li><a href="#about">Values</a></li>
-                    <li><a href="#about">Leadership</a></li>
+                    <li><a href="#about">Vision & Values</a></li>
+                    <li><a href="#about">Leadership Team</a></li>
+                    <li><a href="#about">Our History</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Our Work</h3>
                 <ul>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#collaborations">Programs</a></li>
-                    <li><a href="#collaborations">Partnerships</a></li>
-                    <li><a href="#collaborations">Impact</a></li>
+                    <li><a href="#events">Programs</a></li>
+                    <li><a href="#events">Upcoming Events</a></li>
+                    <li><a href="#media">Media & Stories</a></li>
+                    <li><a href="#collaborations">Impact Reports</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Get Involved</h3>
                 <ul>
                     <li><a href="#collaborations">Volunteer</a></li>
-                    <li><a href="#collaborations">Donate</a></li>
                     <li><a href="#collaborations">Partner With Us</a></li>
-                    <li><a href="#collaborations">Sponsor</a></li>
+                    <li><a href="#collaborations">Sponsor a Program</a></li>
+                    <li><a href="#collaborations">Donate</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Connect With Us</h3>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="https://www.tiktok.com/@compower.society?_t=ZM-8xRqD22e3Q0&_r=1" target="_blank"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.instagram.com/compower_society?igsh=ZHpiNm93ajljNTcw" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
-                <p style="margin-top: 1rem;">Stay updated with our latest activities and events.</p>
-            </div>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 Compower Society. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Admin Login Modal -->
-    <div class="modal" id="adminLoginModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div class="login-container">
-                <h2>Admin Login</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="adminEmail">Email</label>
-                        <input type="email" id="adminEmail" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="adminPassword">Password</label>
-                        <input type="password" id="adminPassword" required>
-                    </div>
-                    <button type="submit" class="submit-btn">Login</button>
+                <p style="margin-top: 1.5rem; color: rgba(255,255,255,0.7);">Subscribe to our newsletter</p>
+                <form style="margin-top: 0.5rem; display: flex;">
+                    <input type="email" placeholder="Your email" style="padding: 0.6rem; border: none; border-radius: 4px 0 0 4px; width: 70%;">
+                    <button type="submit" style="background: var(--secondary); color: white; border: none; padding: 0 1rem; border-radius: 0 4px 4px 0; cursor: pointer;">Join</button>
                 </form>
             </div>
         </div>
-    </div>
+        <div class="copyright">
+            <p>&copy; 2025 Compower Society. All Rights Reserved.</p>
+            <p style="margin-top: 0.5rem;">Registered Community-Based Organization</p>
+        </div>
+    </footer>
 
-    <!-- Add Event Modal -->
-    <div class="modal" id="addEventModal">
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
         <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Add New Event</h2>
-            <form id="modalEventForm">
+            <span class="close-modal" id="closeModal">&times;</span>
+            <h2>Admin Login</h2>
+            <form id="loginForm">
                 <div class="form-group">
-                    <label for="modalEventTitle">Event Title</label>
-                    <input type="text" id="modalEventTitle" required>
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" required>
                 </div>
                 <div class="form-group">
-                    <label for="modalEventDate">Event Date</label>
-                    <input type="date" id="modalEventDate" required>
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
                 </div>
-                <div class="form-group">
-                    <label for="modalEventLocation">Location</label>
-                    <input type="text" id="modalEventLocation" required>
-                </div>
-                <div class="form-group">
-                    <label for="modalEventDescription">Description</label>
-                    <textarea id="modalEventDescription" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="modalEventImage">Event Image</label>
-                    <input type="file" id="modalEventImage" accept="image/*" required>
-                </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" id="modalEventIsUpcoming"> Upcoming Event
-                    </label>
-                </div>
-                <button type="submit" class="submit-btn">Add Event</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </div>
 
-    <!-- Success Modal -->
-    <div class="modal" id="successModal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div style="text-align: center; padding: 2rem;">
-                <i class="fas fa-check-circle" style="font-size: 4rem; color: green; margin-bottom: 1rem;"></i>
-                <h3>Success!</h3>
-                <p id="successMessage">Your submission has been received.</p>
-                <button class="btn" id="closeSuccessModal" style="margin-top: 1rem;">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- JavaScript -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1164,105 +1731,77 @@
             const navMenu = document.getElementById('navMenu');
             
             mobileMenuBtn.addEventListener('click', function() {
-                navMenu.classList.toggle('show');
+                navMenu.classList.toggle('active');
+                this.querySelector('i').classList.toggle('fa-times');
+                this.querySelector('i').classList.toggle('fa-bars');
+            });
+
+            // Header scroll effect
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 100) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
             });
 
             // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            document.querySelectorAll('nav a').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
+                    
                     const targetId = this.getAttribute('href');
                     if (targetId === '#') return;
                     
                     const targetElement = document.querySelector(targetId);
                     if (targetElement) {
-                        targetElement.scrollIntoView({
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
                         
                         // Close mobile menu if open
-                        navMenu.classList.remove('show');
+                        navMenu.classList.remove('active');
+                        mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                        mobileMenuBtn.querySelector('i').classList.add('fa-bars');
                     }
                 });
             });
 
-            // Collaborations Section
-            const collabBtn = document.getElementById('collabBtn');
-            const collabOptions = document.getElementById('collabOptions');
-            const partnersForm = document.getElementById('partnersForm');
-            const sponsorsForm = document.getElementById('sponsorsForm');
-            const donateOptions = document.getElementById('donateOptions');
-            
-            collabBtn.addEventListener('click', function() {
-                collabOptions.style.display = collabOptions.style.display === 'flex' ? 'none' : 'flex';
-            });
-            
-            document.querySelectorAll('.collab-option').forEach(option => {
-                option.addEventListener('click', function() {
-                    const optionType = this.getAttribute('data-option');
+            // Collaboration Tabs
+            const optionBtns = document.querySelectorAll('.option-btn');
+            optionBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
                     
-                    // Hide all forms
-                    partnersForm.style.display = 'none';
-                    sponsorsForm.style.display = 'none';
-                    donateOptions.style.display = 'none';
-                    
-                    // Show selected form
-                    if (optionType === 'partners') {
-                        partnersForm.style.display = 'block';
-                    } else if (optionType === 'sponsors') {
-                        sponsorsForm.style.display = 'block';
-                    } else if (optionType === 'donate') {
-                        donateOptions.style.display = 'block';
-                    }
-                    
-                    // Scroll to the form
-                    document.querySelector(`#${optionType}Form`).scrollIntoView({
-                        behavior: 'smooth'
+                    // Hide all forms and options
+                    document.querySelectorAll('.collaboration-form, .donation-options').forEach(el => {
+                        el.classList.remove('active');
                     });
+                    
+                    // Show the selected one
+                    document.getElementById(targetId).classList.add('active');
                 });
             });
 
-            // Form Submissions
-            document.getElementById('partnerForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showSuccessModal('Thank you for your partnership application. We will get back to you soon.');
-                this.reset();
-            });
-            
-            document.getElementById('sponsorForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showSuccessModal('Thank you for your sponsorship interest. We will contact you shortly.');
-                this.reset();
-            });
-            
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                showSuccessModal('Thank you for your message. We will respond as soon as possible.');
-                this.reset();
-            });
-
-            // About Section - Learn More Button
-            const learnMoreBtn = document.getElementById('learnMoreBtn');
-            const aboutDetails = document.getElementById('aboutDetails');
-            
-            learnMoreBtn.addEventListener('click', function() {
-                aboutDetails.style.display = aboutDetails.style.display === 'block' ? 'none' : 'block';
-                this.textContent = aboutDetails.style.display === 'block' ? 'Show Less' : 'Learn More';
-                
-                if (aboutDetails.style.display === 'block') {
-                    aboutDetails.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-
-            // Events Section - Initialize Swiper
+            // Initialize Swiper for events
             const swiper = new Swiper('.swiper', {
                 loop: true,
                 autoplay: {
                     delay: 5000,
                     disableOnInteraction: false,
+                },
+                effect: 'coverflow',
+                grabCursor: true,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                coverflowEffect: {
+                    rotate: 20,
+                    stretch: 0,
+                    depth: 200,
+                    modifier: 1,
+                    slideShadows: true,
                 },
                 pagination: {
                     el: '.swiper-pagination',
@@ -1274,270 +1813,222 @@
                 },
             });
 
-            // Sample Events Data (in a real app, this would come from a database)
-            let eventsData = [
+            // Sample past events data
+            const pastEvents = [
                 {
-                    id: 1,
                     title: "Pad Drive 2024",
-                    date: "2024-03-08",
+                    date: "March 15, 2024",
                     location: "Olkalau",
-                    description: "Distribution of sanitary products to schoolgirls in rural areas.",
-                    image: "event1.jpg",
-                    upcoming: false
+                    description: "Distribution of sanitary pads to schoolgirls in rural areas to promote menstrual health and education.",
+                    image: "https://images.unsplash.com/photo-1524179091875-bf99a9a9a57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
                 },
                 {
-                    id: 2,
                     title: "Children's Home Visit",
-                    date: "2024-05-15",
+                    date: "December 10, 2023",
                     location: "Heaven's Eye Children Home",
-                    description: "Visit to deliver food, toiletries and emotional support to children.",
-                    image: "event2.jpg",
-                    upcoming: false
+                    description: "Bringing joy and essential supplies to children in need during the holiday season.",
+                    image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80"
                 },
                 {
-                    id: 3,
                     title: "Youth Empowerment Workshop",
-                    date: "2024-06-20",
-                    location: "Nairobi",
-                    description: "Training workshop for young people on leadership and life skills.",
-                    image: "event3.jpg",
-                    upcoming: false
+                    date: "August 22, 2023",
+                    location: "Nyahururu",
+                    description: "Skills training and mentorship program for local youth to become community leaders.",
+                    image: "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80"
                 },
                 {
-                    id: 4,
-                    title: "Pad Drive 2025",
-                    date: "2025-03-08",
-                    location: "Olkalau",
-                    description: "Major Pad Drive event reaching hundreds of girls with sanitary products and education.",
-                    image: "event4.jpg",
-                    upcoming: true
-                },
-                {
-                    id: 5,
-                    title: "Children's Home Visit",
-                    date: "2025-08-20",
-                    location: "Heaven's Eye Children Home",
-                    description: "Upcoming visit to deliver support and identify long-term help areas.",
-                    image: "event5.jpg",
-                    upcoming: true
+                    title: "Community Clean-up",
+                    date: "June 5, 2023",
+                    location: "Laikipia County",
+                    description: "Bringing the community together to clean and beautify our environment.",
+                    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
                 }
             ];
 
-            // Display Events
-            function displayEvents() {
-                const pastEventsContainer = document.getElementById('pastEventsSwiper');
-                const upcomingEventsContainer = document.getElementById('upcomingEventsList');
-                
-                // Clear existing events
-                pastEventsContainer.innerHTML = '';
-                upcomingEventsContainer.innerHTML = '';
-                
-                // Get current date
-                const currentDate = new Date();
-                currentDate.setHours(0, 0, 0, 0);
-                
-                // Separate past and upcoming events
-                const pastEvents = eventsData.filter(event => {
-                    const eventDate = new Date(event.date);
-                    return eventDate < currentDate || !event.upcoming;
-                });
-                
-                const upcomingEvents = eventsData.filter(event => {
-                    const eventDate = new Date(event.date);
-                    return eventDate >= currentDate && event.upcoming;
-                }).sort((a, b) => new Date(a.date) - new Date(b.date));
-                
-                // Display past events in swiper
-                pastEvents.forEach(event => {
-                    const slide = document.createElement('div');
-                    slide.className = 'swiper-slide';
-                    
-                    slide.innerHTML = `
-                        <img src="${event.image}" alt="${event.title}">
-                        <div class="slide-caption">
-                            <h4>${event.title}</h4>
-                            <p>${formatDate(event.date)} | ${event.location}</p>
-                        </div>
-                    `;
-                    
-                    pastEventsContainer.appendChild(slide);
-                });
-                
-                // Display upcoming events
-                if (upcomingEvents.length > 0) {
-                    upcomingEvents.forEach(event => {
-                        const eventCard = document.createElement('div');
-                        eventCard.className = 'event-card';
-                        
-                        eventCard.innerHTML = `
-                            <h3>${event.title}</h3>
-                            <p class="event-date">${formatDate(event.date)} | ${event.location}</p>
-                            <p>${event.description}</p>
-                        `;
-                        
-                        upcomingEventsContainer.appendChild(eventCard);
-                    });
-                } else {
-                    upcomingEventsContainer.innerHTML = '<p>No upcoming events scheduled. Check back later!</p>';
+            // Learn More Button
+            const learnMoreBtn = document.getElementById('learnMoreBtn');
+            const aboutDetails = document.getElementById('aboutDetails');
+            
+            learnMoreBtn.addEventListener('click', function() {
+                aboutDetails.classList.toggle('active');
+                this.textContent = aboutDetails.classList.contains('active') ? 'Show Less' : 'Learn More About Our Mission';
+                // Smooth scroll to the details section
+                if (aboutDetails.classList.contains('active')) {
+                    aboutDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
-                
-                // Reinitialize swiper after adding slides
-                swiper.update();
-            }
-            
-            // Format date for display
-            function formatDate(dateString) {
-                const options = { year: 'numeric', month: 'long', day: 'numeric' };
-                return new Date(dateString).toLocaleDateString('en-US', options);
-            }
-            
-            // Initial display of events
-            displayEvents();
-            
-            // Admin Login
-            const adminLoginLink = document.getElementById('adminLoginLink');
-            const adminLoginModal = document.getElementById('adminLoginModal');
-            const closeModalButtons = document.querySelectorAll('.close-modal');
-            const loginForm = document.getElementById('loginForm');
-            const eventsAdminControls = document.getElementById('eventsAdminControls');
-            
-            // Admin credentials
-            const adminEmails = ['compower39@gmail.com', 'fredayiera30@gmail.com'];
-            const adminPassword = '@fred123456';
-            
-            adminLoginLink.addEventListener('click', function(e) {
+            });
+
+            // Form Submissions
+            document.getElementById('partnerFormData').addEventListener('submit', function(e) {
                 e.preventDefault();
-                adminLoginModal.style.display = 'flex';
+                alert('Thank you for your partnership application. We will contact you soon.');
+                this.reset();
             });
-            
-            closeModalButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    this.closest('.modal').style.display = 'none';
-                });
+
+            document.getElementById('sponsorFormData').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your sponsorship application. We will contact you soon.');
+                this.reset();
             });
-            
-            // Close modal when clicking outside
+
+            document.getElementById('messageForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Thank you for your message. We will get back to you soon.');
+                this.reset();
+            });
+
+            // Admin Login Modal
+            const loginModal = document.getElementById('loginModal');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const closeModal = document.getElementById('closeModal');
+
+            adminLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+            });
+
+            closeModal.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            });
+
             window.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal')) {
-                    e.target.style.display = 'none';
+                if (e.target === loginModal) {
+                    loginModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
                 }
             });
-            
-            loginForm.addEventListener('submit', function(e) {
+
+            // Admin Login
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
                 
-                const email = document.getElementById('adminEmail').value;
-                const password = document.getElementById('adminPassword').value;
-                
-                if (adminEmails.includes(email) && password === adminPassword) {
-                    showSuccessModal('Login successful! Admin controls are now available.');
-                    adminLoginModal.style.display = 'none';
-                    
-                    // Show admin controls
-                    eventsAdminControls.style.display = 'block';
-                    
-                    // Change login link to logout
-                    adminLoginLink.innerHTML = '<i class="fas fa-sign-out-alt"></i> Logout';
-                    adminLoginLink.removeEventListener('click', loginClickHandler);
-                    adminLoginLink.addEventListener('click', logout);
+                // Check admin credentials
+                if ((email === 'compower39@gmail.com' || email === 'fredayiera30@gmail.com') && password === '@fred123456') {
+                    alert('Login successful! Admin controls enabled.');
+                    document.getElementById('eventAdminControls').style.display = 'block';
+                    document.getElementById('mediaAdminControls').style.display = 'block';
+                    loginModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    this.reset();
                 } else {
                     alert('Invalid email or password. Please try again.');
                 }
             });
+
+            // Event Management (for admin)
+            const eventForm = document.getElementById('eventForm');
+            const adminEventList = document.getElementById('adminEventList');
+            const clearEventForm = document.getElementById('clearEventForm');
             
-            function logout() {
-                eventsAdminControls.style.display = 'none';
-                adminLoginLink.innerHTML = 'Admin Login';
-                adminLoginLink.removeEventListener('click', logout);
-                adminLoginLink.addEventListener('click', loginClickHandler);
-            }
-            
-            function loginClickHandler(e) {
-                e.preventDefault();
-                adminLoginModal.style.display = 'flex';
-            }
-            
-            // Admin Event Management
-            const addEventBtn = document.getElementById('addEventBtn');
-            const addEventForm = document.getElementById('addEventForm');
-            const addEventModal = document.getElementById('addEventModal');
-            const modalEventForm = document.getElementById('modalEventForm');
-            
-            addEventBtn.addEventListener('click', function() {
-                addEventModal.style.display = 'flex';
+            // Load existing events
+            pastEvents.forEach(event => {
+                addEventToAdminList(event);
             });
             
-            modalEventForm.addEventListener('submit', function(e) {
+            eventForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
+                const title = document.getElementById('eventTitle').value;
+                const date = new Date(document.getElementById('eventDate').value).toLocaleDateString();
+                const location = document.getElementById('eventLocation').value;
+                const description = document.getElementById('eventDescription').value;
+                const imageUrl = document.getElementById('eventImageUrl').value;
+                
+                // Create new event object
                 const newEvent = {
-                    id: eventsData.length + 1,
-                    title: document.getElementById('modalEventTitle').value,
-                    date: document.getElementById('modalEventDate').value,
-                    location: document.getElementById('modalEventLocation').value,
-                    description: document.getElementById('modalEventDescription').value,
-                    image: 'event-default.jpg', // In a real app, you would upload and store the image
-                    upcoming: document.getElementById('modalEventIsUpcoming').checked
+                    title,
+                    date,
+                    location,
+                    description,
+                    image: imageUrl
                 };
                 
-                eventsData.push(newEvent);
-                displayEvents();
+                // Add to admin event list
+                addEventToAdminList(newEvent);
                 
-                showSuccessModal('Event added successfully!');
-                modalEventForm.reset();
-                addEventModal.style.display = 'none';
+                // Add to past events slider
+                addEventToSlider(newEvent);
+                
+                // Reset form
+                this.reset();
+                
+                alert('Event added successfully!');
             });
             
-            // Image Upload Handling
-            document.getElementById('logoImage').addEventListener('click', function() {
-                const input = document.createElement('input');
-                input.type = 'file';
-                input.accept = 'image/*';
-                
-                input.onchange = function(e) {
-                    const file = e.target.files[0];
-                    if (file) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            document.getElementById('logoImage').src = event.target.result;
-                        };
-                        reader.readAsDataURL(file);
-                    }
-                };
-                
-                input.click();
-            });
-            
-            // Similarly for leader images
-            ['leaderImg1', 'leaderImg2', 'leaderImg3'].forEach(id => {
-                document.getElementById(id).addEventListener('click', function() {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = 'image/*';
-                    
-                    input.onchange = function(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function(event) {
-                                document.getElementById(id).src = event.target.result;
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    };
-                    
-                    input.click();
-                });
-            });
-            
-            // Success Modal
-            function showSuccessModal(message) {
-                document.getElementById('successMessage').textContent = message;
-                document.getElementById('successModal').style.display = 'flex';
+            function addEventToAdminList(event) {
+                const eventItem = document.createElement('div');
+                eventItem.className = 'event-item';
+                eventItem.style.background = 'white';
+                eventItem.style.padding = '1.5rem';
+                eventItem.style.borderRadius = '8px';
+                eventItem.style.marginBottom = '1rem';
+                eventItem.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
+                eventItem.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <h4 style="color: var(--primary); margin-bottom: 0.5rem;">${event.title}</h4>
+                            <p style="color: var(--text-light);">${event.date} • ${event.location}</p>
+                        </div>
+                        <button class="btn-admin delete" style="margin-left: 1rem;">Delete</button>
+                    </div>
+                `;
+                adminEventList.appendChild(eventItem);
             }
             
-            document.getElementById('closeSuccessModal').addEventListener('click', function() {
-                document.getElementById('successModal').style.display = 'none';
+            function addEventToSlider(event) {
+                const pastEventsContainer = document.getElementById('pastEvents');
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.innerHTML = `
+                    <img src="${event.image}" alt="${event.title}">
+                    <div class="slide-caption">
+                        <h3>${event.title}</h3>
+                        <p>${event.date} • ${event.location}</p>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                pastEventsContainer.appendChild(slide);
+                swiper.update();
+            }
+            
+            clearEventForm.addEventListener('click', function() {
+                eventForm.reset();
+            });
+            
+            // Event deletion
+            adminEventList.addEventListener('click', function(e) {
+                if (e.target.classList.contains('delete')) {
+                    if (confirm('Are you sure you want to delete this event?')) {
+                        e.target.closest('.event-item').remove();
+                        // In a real app, you would also remove from the database
+                    }
+                }
+            });
+            
+            // Media Management (for admin)
+            const mediaForm = document.getElementById('mediaForm');
+            const clearMediaForm = document.getElementById('clearMediaForm');
+            
+            clearMediaForm.addEventListener('click', function() {
+                mediaForm.reset();
+            });
+            
+            mediaForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const type = document.getElementById('mediaType').value;
+                const title = document.getElementById('mediaTitle').value;
+                const url = document.getElementById('mediaUrl').value;
+                const description = document.getElementById('mediaDescription').value;
+                
+                // In a real app, you would save this to a database
+                alert(`Media added successfully!\nType: ${type}\nTitle: ${title}\nURL: ${url}`);
+                
+                this.reset();
             });
         });
     </script>
