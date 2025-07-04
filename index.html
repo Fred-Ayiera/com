@@ -187,10 +187,7 @@
         .hero {
             height: 100vh;
             min-height: 800px;
-            background: linear-gradient(rgba(21, 101, 192, 0.85), rgba(13, 71, 161, 0.9)), url('hero-bg.jpg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+            background: linear-gradient(rgba(21, 101, 192, 0.85), rgba(13, 71, 161, 0.9)), url('https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=2070&auto=format&fit=crop') center/cover fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1158,16 +1155,16 @@
             display: block;
         }
 
-        /* New Admin Panel Styles */
+        /* Admin Panel - FIXED ISSUE HERE */
         .admin-panel {
             position: fixed;
-            top: 0;
+            top: 80px; /* Start below header */
             right: -400px;
             width: 400px;
-            height: 100vh;
+            height: calc(100vh - 80px); /* Account for header height */
             background: white;
             box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-            z-index: 1001;
+            z-index: 1001; /* Below header but above content */
             transition: all 0.3s ease;
             overflow-y: auto;
             padding: 20px;
@@ -1275,6 +1272,18 @@
             margin-right: 5px;
         }
 
+        /* Close button for admin panel */
+        .close-admin-panel {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero-content h1 {
@@ -1351,6 +1360,8 @@
             .admin-panel {
                 width: 100%;
                 right: -100%;
+                top: 70px; /* Adjust for mobile header height */
+                height: calc(100vh - 70px);
             }
             
             .admin-panel.active {
@@ -1394,7 +1405,7 @@
     <!-- Header -->
     <header id="header">
         <div class="logo-container">
-            <img src="logo.jpg" alt="Compower Society Logo" class="logo-img" id="websiteLogo">
+            <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?q=80&w=1974&auto=format&fit=crop" alt="Compower Society Logo" class="logo-img" id="websiteLogo">
             <div class="logo-text">
                 <h1>Compower Society</h1>
                 <p>Building hope one act at a time</p>
@@ -1438,6 +1449,7 @@
     </div>
 
     <div class="admin-panel" id="adminPanel">
+        <button class="close-admin-panel" id="closeAdminPanel">&times;</button>
         <h2>Admin Dashboard</h2>
         
         <div class="admin-tabs">
@@ -1632,7 +1644,7 @@
                 <div class="swiper-wrapper" id="pastEvents">
                     <!-- Event 1 -->
                     <div class="swiper-slide">
-                        <img src="event1.jpg" alt="Pad Drive Event">
+                        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop" alt="Pad Drive Event">
                         <div class="slide-caption">
                             <h3>Pad Drive 2024</h3>
                             <p>March 15, 2024 • Olkalau</p>
@@ -1641,7 +1653,7 @@
                     </div>
                     <!-- Event 2 -->
                     <div class="swiper-slide">
-                        <img src="event2.jpg" alt="Children's Home Visit">
+                        <img src="https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop" alt="Children's Home Visit">
                         <div class="slide-caption">
                             <h3>Children's Home Visit</h3>
                             <p>December 10, 2023 • Heaven's Eye Children Home</p>
@@ -1650,7 +1662,7 @@
                     </div>
                     <!-- Event 3 -->
                     <div class="swiper-slide">
-                        <img src="event3.jpg" alt="Youth Empowerment Workshop">
+                        <img src="https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=2070&auto=format&fit=crop" alt="Youth Empowerment Workshop">
                         <div class="slide-caption">
                             <h3>Youth Empowerment Workshop</h3>
                             <p>August 22, 2023 • Nyahururu</p>
@@ -1659,7 +1671,7 @@
                     </div>
                     <!-- Event 4 -->
                     <div class="swiper-slide">
-                        <img src="event4.jpg" alt="Community Clean-up">
+                        <img src="https://images.unsplash.com/photo-1547981609-4b6bf67dbacc?q=80&w=2070&auto=format&fit=crop" alt="Community Clean-up">
                         <div class="slide-caption">
                             <h3>Community Clean-up</h3>
                             <p>June 5, 2023 • Laikipia County</p>
@@ -1726,10 +1738,7 @@
             <!-- Video Section -->
             <div class="media-card">
                 <div class="video-container">
-                    <video controls>
-                        <source src="videos/events-highlight.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Recent Events Highlights" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="media-info">
                     <h3>Recent Events Highlights</h3>
@@ -1740,60 +1749,12 @@
             <!-- Documentary Section -->
             <div class="media-card">
                 <div class="video-container">
-                    <video controls>
-                        <source src="videos/documentary.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
+                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Compower Society Documentary" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
                 <div class="media-info">
                     <h3>Compower Society Documentary</h3>
                     <p>Our journey of empowering communities and transforming lives through compassion and action.</p>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Admin Controls for Media -->
-        <div class="admin-controls" id="mediaAdminControls">
-            <h3 class="admin-section-title">Manage Media</h3>
-            <div class="event-form">
-                <form id="mediaForm">
-                    <div class="form-group">
-                        <label for="mediaType">Media Type</label>
-                        <select id="mediaType" required>
-                            <option value="">Select media type</option>
-                            <option value="video">Event Video</option>
-                            <option value="documentary">Documentary</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="mediaTitle">Title</label>
-                        <input type="text" id="mediaTitle" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="mediaSource">Video Source</label>
-                        <select id="mediaSource" required>
-                            <option value="">Select source</option>
-                            <option value="youtube">YouTube</option>
-                            <option value="direct">Direct Upload</option>
-                        </select>
-                    </div>
-                    <div class="form-group" id="youtubeUrlGroup">
-                        <label for="mediaYoutubeUrl">YouTube Embed URL</label>
-                        <input type="url" id="mediaYoutubeUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID">
-                    </div>
-                    <div class="form-group" id="videoFileGroup" style="display: none;">
-                        <label for="mediaVideoFile">Video File Path</label>
-                        <input type="text" id="mediaVideoFile" placeholder="videos/documentary.mp4">
-                    </div>
-                    <div class="form-group">
-                        <label for="mediaDescription">Description</label>
-                        <textarea id="mediaDescription" required></textarea>
-                    </div>
-                    <div class="admin-buttons">
-                        <button type="submit" class="btn-admin">Add Media</button>
-                        <button type="button" class="btn-admin delete" id="clearMediaForm">Clear Form</button>
-                    </div>
-                </form>
             </div>
         </div>
     </section>
@@ -1808,7 +1769,7 @@
             <div class="leaders-grid" id="leadersContainer">
                 <!-- Leader 1 -->
                 <div class="leader-card">
-                    <img src="leaders/leader1.jpg" alt="John Mwangi" class="leader-img">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1974&auto=format&fit=crop" alt="John Mwangi" class="leader-img">
                     <div class="leader-info">
                         <h3>John Mwangi</h3>
                         <p>Founder & Executive Director</p>
@@ -1824,7 +1785,7 @@
                 </div>
                 <!-- Leader 2 -->
                 <div class="leader-card">
-                    <img src="leaders/leader2.jpg" alt="Sarah Wanjiku" class="leader-img">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" alt="Sarah Wanjiku" class="leader-img">
                     <div class="leader-info">
                         <h3>Sarah Wanjiku</h3>
                         <p>Programs Director</p>
@@ -1840,7 +1801,7 @@
                 </div>
                 <!-- Leader 3 -->
                 <div class="leader-card">
-                    <img src="leaders/leader3.jpg" alt="David Omondi" class="leader-img">
+                    <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1974&auto=format&fit=crop" alt="David Omondi" class="leader-img">
                     <div class="leader-info">
                         <h3>David Omondi</h3>
                         <p>Finance Director</p>
@@ -1856,7 +1817,7 @@
                 </div>
                 <!-- Leader 4 -->
                 <div class="leader-card">
-                    <img src="leaders/leader4.jpg" alt="Grace Akinyi" class="leader-img">
+                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1976&auto=format&fit=crop" alt="Grace Akinyi" class="leader-img">
                     <div class="leader-info">
                         <h3>Grace Akinyi</h3>
                         <p>Women Empowerment Coordinator</p>
@@ -1866,54 +1827,6 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button class="leader-admin-btn delete" data-leader-id="4">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- Leader 5 -->
-                <div class="leader-card">
-                    <img src="leaders/leader5.jpg" alt="Maryanne Atieno" class="leader-img">
-                    <div class="leader-info">
-                        <h3>Maryanne Atieno</h3>
-                        <p>Youth Programs Manager</p>
-                    </div>
-                    <div class="leader-admin-controls">
-                        <button class="leader-admin-btn edit" data-leader-id="5">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="leader-admin-btn delete" data-leader-id="5">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- Leader 6 -->
-                <div class="leader-card">
-                    <img src="leaders/leader6.jpg" alt="Peter Kamau" class="leader-img">
-                    <div class="leader-info">
-                        <h3>Peter Kamau</h3>
-                        <p>Community Outreach Coordinator</p>
-                    </div>
-                    <div class="leader-admin-controls">
-                        <button class="leader-admin-btn edit" data-leader-id="6">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="leader-admin-btn delete" data-leader-id="6">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-                <!-- Leader 7 -->
-                <div class="leader-card">
-                    <img src="leaders/leader7.jpg" alt="James Mutua" class="leader-img">
-                    <div class="leader-info">
-                        <h3>James Mutua</h3>
-                        <p>Volunteer Coordinator</p>
-                    </div>
-                    <div class="leader-admin-controls">
-                        <button class="leader-admin-btn edit" data-leader-id="7">
-                            <i class="fas fa-edit"></i>
-                        </button>
-                        <button class="leader-admin-btn delete" data-leader-id="7">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -2097,7 +2010,7 @@
     <!-- Logo Upload Form -->
     <div class="logo-upload-form" id="logoUploadForm">
         <h3>Change Website Logo</h3>
-        <img src="logo.jpg" alt="Current Logo" class="logo-preview" id="logoPreview">
+        <img src="https://images.unsplash.com/photo-1561154464-82e9adf32764?q=80&w=1974&auto=format&fit=crop" alt="Current Logo" class="logo-preview" id="logoPreview">
         <form id="logoForm">
             <div class="form-group">
                 <label for="logoFile">Upload New Logo</label>
@@ -2242,28 +2155,28 @@
                     date: "March 15, 2024",
                     location: "Olkalau",
                     description: "Distribution of sanitary pads to schoolgirls in rural areas to promote menstrual health and education.",
-                    image: "event1.jpg"
+                    image: "https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=2070&auto=format&fit=crop"
                 },
                 {
                     title: "Children's Home Visit",
                     date: "December 10, 2023",
                     location: "Heaven's Eye Children Home",
                     description: "Bringing joy and essential supplies to children in need during the holiday season.",
-                    image: "event2.jpg"
+                    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?q=80&w=2069&auto=format&fit=crop"
                 },
                 {
                     title: "Youth Empowerment Workshop",
                     date: "August 22, 2023",
                     location: "Nyahururu",
                     description: "Skills training and mentorship program for local youth to become community leaders.",
-                    image: "event3.jpg"
+                    image: "https://images.unsplash.com/photo-1491438590914-bc09fcaaf77a?q=80&w=2070&auto=format&fit=crop"
                 },
                 {
                     title: "Community Clean-up",
                     date: "June 5, 2023",
                     location: "Laikipia County",
                     description: "Bringing the community together to clean and beautify our environment.",
-                    image: "event4.jpg"
+                    image: "https://images.unsplash.com/photo-1547981609-4b6bf67dbacc?q=80&w=2070&auto=format&fit=crop"
                 }
             ];
 
@@ -2341,7 +2254,7 @@
             const leaderFormTitle = document.getElementById('leaderFormTitle');
             const saveLeaderBtn = document.getElementById('saveLeaderBtn');
             const overlay = document.getElementById('overlay');
-            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const closeAdminPanel = document.getElementById('closeAdminPanel');
             
             // Store for requests
             let partnerRequests = [];
@@ -2355,20 +2268,6 @@
                 { email: 'compower39@gmail.com', password: 'fred' }
             ];
 
-            // Load saved logo from localStorage if exists
-            const savedLogo = localStorage.getItem('websiteLogo');
-            if (savedLogo) {
-                websiteLogo.src = savedLogo;
-            }
-
-            // Load saved leaders from localStorage if exists
-            let leaders = [];
-            const savedLeaders = localStorage.getItem('leaders');
-            if (savedLeaders) {
-                leaders = JSON.parse(savedLeaders);
-                renderLeaders();
-            }
-
             // Toggle admin panel
             adminToggle.addEventListener('click', function() {
                 if (!isAdminLoggedIn) {
@@ -2380,16 +2279,9 @@
                 }
             });
 
-            // Admin login button click
-            adminLoginBtn.addEventListener('click', function(e) {
-                e.preventDefault();
-                if (!isAdminLoggedIn) {
-                    loginModal.style.display = 'flex';
-                    document.body.style.overflow = 'hidden';
-                    overlay.classList.add('active');
-                } else {
-                    adminPanel.classList.toggle('active');
-                }
+            // Close admin panel
+            closeAdminPanel.addEventListener('click', function() {
+                adminPanel.classList.remove('active');
             });
 
             // Close modal
@@ -2431,7 +2323,7 @@
                     document.body.style.overflow = 'auto';
                     overlay.classList.remove('active');
                     adminPanel.classList.add('active');
-                    document.getElementById('adminDashboard').classList.add('active');
+                    adminDashboard.classList.add('active');
                     
                     // Load existing requests from localStorage
                     loadRequests();
@@ -2439,7 +2331,6 @@
                     // Change admin toggle appearance
                     adminToggle.innerHTML = '<i class="fas fa-user-shield"></i> Admin Panel';
                     adminToggle.style.background = 'var(--accent)';
-                    adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
                     
                     // Show all admin controls
                     document.querySelectorAll('.admin-controls').forEach(el => {
@@ -2451,6 +2342,9 @@
                         el.style.display = 'flex';
                     });
                     
+                    // Change login button to logout
+                    adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
+                    
                     alert('Login successful! You now have admin privileges.');
                 } else {
                     alert('Invalid credentials. Please try again.');
@@ -2460,7 +2354,7 @@
             // Logout functionality
             logoutBtn.addEventListener('click', function() {
                 isAdminLoggedIn = false;
-                document.getElementById('adminDashboard').classList.remove('active');
+                adminDashboard.classList.remove('active');
                 adminPanel.classList.remove('active');
                 document.querySelectorAll('.admin-controls').forEach(el => {
                     el.style.display = 'none';
@@ -2472,7 +2366,7 @@
                 });
                 
                 // Reset login button
-                adminLoginBtn.textContent = 'Admin Login';
+                adminLoginBtn.innerHTML = 'Admin Login';
                 adminToggle.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
                 adminToggle.style.background = 'var(--primary)';
                 
@@ -2512,9 +2406,7 @@
                         // Update the website logo
                         websiteLogo.src = event.target.result;
                         
-                        // Save to localStorage
-                        localStorage.setItem('websiteLogo', event.target.result);
-                        
+                        // In a real app, you would upload this to your server
                         alert('Logo updated successfully!');
                         
                         // Close the form
@@ -2545,18 +2437,18 @@
                     const leaderCard = e.target.closest('.leader-card');
                     const leaderId = e.target.closest('.leader-admin-btn').getAttribute('data-leader-id');
                     
-                    // Find the leader in our array
-                    const leader = leaders.find(l => l.id == leaderId);
-                    if (!leader) return;
+                    // Get leader details
+                    const leaderName = leaderCard.querySelector('h3').textContent;
+                    const leaderPosition = leaderCard.querySelector('p').textContent;
+                    const leaderImage = leaderCard.querySelector('img').src;
                     
                     // Populate form
-                    document.getElementById('leaderName').value = leader.name;
-                    document.getElementById('leaderPosition').value = leader.position;
-                    document.getElementById('leaderBio').value = leader.bio || '';
-                    leaderPreview.src = leader.image;
-                    document.getElementById('leaderId').value = leader.id;
+                    document.getElementById('leaderName').value = leaderName;
+                    document.getElementById('leaderPosition').value = leaderPosition;
+                    leaderPreview.src = leaderImage;
+                    document.getElementById('leaderId').value = leaderId;
                     leaderFormTitle.textContent = 'Edit Leader';
-                    currentLeaderId = leader.id;
+                    currentLeaderId = leaderId;
                     
                     // Show form
                     leaderFormModal.classList.add('active');
@@ -2566,17 +2458,9 @@
                 // Delete leader
                 if (e.target.closest('.leader-admin-btn.delete')) {
                     if (confirm('Are you sure you want to delete this leader?')) {
-                        const leaderId = e.target.closest('.leader-admin-btn').getAttribute('data-leader-id');
-                        
-                        // Remove from array
-                        leaders = leaders.filter(l => l.id != leaderId);
-                        
-                        // Save to localStorage
-                        localStorage.setItem('leaders', JSON.stringify(leaders));
-                        
-                        // Re-render leaders
-                        renderLeaders();
-                        
+                        const leaderCard = e.target.closest('.leader-card');
+                        leaderCard.remove();
+                        // In a real app, you would also delete from the database
                         alert('Leader deleted successfully!');
                     }
                 }
@@ -2610,85 +2494,77 @@
                 const bio = document.getElementById('leaderBio').value;
                 const imageFile = document.getElementById('leaderImage').files[0];
                 
-                if (imageFile) {
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        processLeaderSave(name, position, bio, event.target.result);
-                    };
-                    reader.readAsDataURL(imageFile);
-                } else {
-                    // If no new image was uploaded, use the existing one (for edits)
-                    const existingImage = leaderPreview.src.includes('placeholder') ? 
-                        'https://via.placeholder.com/300x350?text=Leader+Image' : 
-                        leaderPreview.src;
-                    processLeaderSave(name, position, bio, existingImage);
-                }
-            });
-
-            function processLeaderSave(name, position, bio, imageSrc) {
                 if (currentLeaderId) {
                     // Edit existing leader
-                    const leaderIndex = leaders.findIndex(l => l.id == currentLeaderId);
-                    if (leaderIndex !== -1) {
-                        leaders[leaderIndex] = {
-                            id: currentLeaderId,
-                            name,
-                            position,
-                            bio,
-                            image: imageSrc
+                    const leaderCard = document.querySelector(`.leader-admin-btn.edit[data-leader-id="${currentLeaderId}"]`).closest('.leader-card');
+                    leaderCard.querySelector('h3').textContent = name;
+                    leaderCard.querySelector('p').textContent = position;
+                    
+                    if (imageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            leaderCard.querySelector('img').src = event.target.result;
                         };
+                        reader.readAsDataURL(imageFile);
                     }
+                    
+                    alert('Leader updated successfully!');
                 } else {
                     // Add new leader
-                    const newLeader = {
-                        id: Date.now(), // Unique ID
-                        name,
-                        position,
-                        bio,
-                        image: imageSrc
-                    };
-                    leaders.push(newLeader);
+                    const leaderId = Date.now(); // Unique ID
+                    const leaderCard = document.createElement('div');
+                    leaderCard.className = 'leader-card';
+                    
+                    let imageSrc = 'https://via.placeholder.com/300x350?text=Leader+Image';
+                    if (imageFile) {
+                        const reader = new FileReader();
+                        reader.onload = function(event) {
+                            imageSrc = event.target.result;
+                            leaderCard.innerHTML = `
+                                <img src="${imageSrc}" alt="${name}" class="leader-img">
+                                <div class="leader-info">
+                                    <h3>${name}</h3>
+                                    <p>${position}</p>
+                                </div>
+                                <div class="leader-admin-controls">
+                                    <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            `;
+                            leadersContainer.appendChild(leaderCard);
+                        };
+                        reader.readAsDataURL(imageFile);
+                    } else {
+                        leaderCard.innerHTML = `
+                            <img src="${imageSrc}" alt="${name}" class="leader-img">
+                            <div class="leader-info">
+                                <h3>${name}</h3>
+                                <p>${position}</p>
+                            </div>
+                            <div class="leader-admin-controls">
+                                <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        `;
+                        leadersContainer.appendChild(leaderCard);
+                    }
+                    
+                    alert('Leader added successfully!');
                 }
-                
-                // Save to localStorage
-                localStorage.setItem('leaders', JSON.stringify(leaders));
-                
-                // Re-render leaders
-                renderLeaders();
                 
                 // Close the form
                 leaderFormModal.classList.remove('active');
                 overlay.classList.remove('active');
                 leaderForm.reset();
-                
-                alert('Leader saved successfully!');
-            }
-
-            function renderLeaders() {
-                leadersContainer.innerHTML = '';
-                
-                leaders.forEach(leader => {
-                    const leaderCard = document.createElement('div');
-                    leaderCard.className = 'leader-card';
-                    leaderCard.innerHTML = `
-                        <img src="${leader.image}" alt="${leader.name}" class="leader-img">
-                        <div class="leader-info">
-                            <h3>${leader.name}</h3>
-                            <p>${leader.position}</p>
-                            ${leader.bio ? `<p class="leader-bio">${leader.bio}</p>` : ''}
-                        </div>
-                        <div class="leader-admin-controls">
-                            <button class="leader-admin-btn edit" data-leader-id="${leader.id}">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button class="leader-admin-btn delete" data-leader-id="${leader.id}">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    `;
-                    leadersContainer.appendChild(leaderCard);
-                });
-            }
+            });
 
             // Form submissions - store requests
             document.getElementById('partnerFormData').addEventListener('submit', function(e) {
@@ -2761,13 +2637,9 @@
                     const partnerRequestsList = document.getElementById('partnerRequestsList');
                     partnerRequestsList.innerHTML = '';
                     
-                    if (partnerRequests.length === 0) {
-                        partnerRequestsList.innerHTML = '<p>No partner requests yet.</p>';
-                    } else {
-                        partnerRequests.forEach(request => {
-                            addRequestToPanel(request, 'partner');
-                        });
-                    }
+                    partnerRequests.forEach(request => {
+                        addRequestToPanel(request, 'partner');
+                    });
                 }
                 
                 if (savedSponsorRequests) {
@@ -2775,13 +2647,9 @@
                     const sponsorRequestsList = document.getElementById('sponsorRequestsList');
                     sponsorRequestsList.innerHTML = '';
                     
-                    if (sponsorRequests.length === 0) {
-                        sponsorRequestsList.innerHTML = '<p>No sponsor requests yet.</p>';
-                    } else {
-                        sponsorRequests.forEach(request => {
-                            addRequestToPanel(request, 'sponsor');
-                        });
-                    }
+                    sponsorRequests.forEach(request => {
+                        addRequestToPanel(request, 'sponsor');
+                    });
                 }
             }
 
@@ -2993,52 +2861,6 @@
                     }
                 }
             });
-            
-            // Media Management (for admin)
-            const mediaForm = document.getElementById('mediaForm');
-            const clearMediaForm = document.getElementById('clearMediaForm');
-            
-            clearMediaForm.addEventListener('click', function() {
-                mediaForm.reset();
-            });
-            
-            mediaForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const type = document.getElementById('mediaType').value;
-                const title = document.getElementById('mediaTitle').value;
-                const source = document.getElementById('mediaSource').value;
-                const description = document.getElementById('mediaDescription').value;
-                
-                let mediaHtml = '';
-                
-                if (source === 'youtube') {
-                    const youtubeUrl = document.getElementById('mediaYoutubeUrl').value;
-                    mediaHtml = `
-                        <div class="video-container">
-                            <iframe src="${youtubeUrl}" title="${title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        </div>
-                    `;
-                } else if (source === 'direct') {
-                    const videoPath = document.getElementById('mediaVideoFile').value;
-                    mediaHtml = `
-                        <div class="video-container">
-                            <video controls>
-                                <source src="${videoPath}" type="video/mp4">
-                                Your browser does not support the video tag.
-                            </video>
-                        </div>
-                    `;
-                }
-                
-                // In a real app, you would save this to a database and update the display
-                alert(`Media added successfully!\nType: ${type}\nTitle: ${title}\nSource: ${source}`);
-                
-                this.reset();
-            });
-
-            // Initialize the page
-            loadRequests();
         });
     </script>
 </body>
