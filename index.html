@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     <style>
         :root {
-            --primary: #1e88e5;  /* Vibrant blue */
+            --primary: #1565c0;  /* Darker dodger blue */
             --secondary: #ff6d00; /* Warm orange */
             --accent: #4caf50;   /* Fresh green */
             --dark: #263238;     /* Dark blue-gray */
@@ -48,7 +48,7 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), #1565c0);
+            background: linear-gradient(135deg, var(--primary), #0d47a1);
             color: var(--white);
             padding: 1.5rem 5%;
             display: flex;
@@ -65,7 +65,7 @@
 
         header.scrolled {
             padding: 1rem 5%;
-            background: rgba(30, 136, 229, 0.95);
+            background: rgba(21, 101, 192, 0.95);
             backdrop-filter: blur(10px);
         }
 
@@ -185,7 +185,7 @@
         .hero {
             height: 100vh;
             min-height: 800px;
-            background: linear-gradient(rgba(30, 136, 229, 0.85), rgba(21, 101, 192, 0.9)), url('https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
+            background: linear-gradient(rgba(21, 101, 192, 0.85), rgba(13, 71, 161, 0.9)), url('hero-bg.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -582,7 +582,8 @@
             overflow: hidden;
         }
 
-        .video-container iframe {
+        .video-container iframe,
+        .video-container video {
             position: absolute;
             top: 0;
             left: 0;
@@ -724,24 +725,6 @@
             font-style: italic;
             color: var(--text-light);
             margin-bottom: 1rem;
-        }
-
-        .leader-social {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .leader-social a {
-            color: var(--primary);
-            font-size: 1.2rem;
-            transition: var(--transition);
-        }
-
-        .leader-social a:hover {
-            color: var(--secondary);
-            transform: translateY(-3px);
         }
 
         .about-details {
@@ -1095,7 +1078,7 @@
     <!-- Header -->
     <header id="header">
         <div class="logo-container">
-            <img src="COMPOWERSOCIETYLOGO.jpg" alt="Compower Society Logo" class="logo-img">
+            <img src="logo.jpg" alt="Compower Society Logo" class="logo-img">
             <div class="logo-text">
                 <h1>Compower Society</h1>
                 <p>Building hope one act at a time</p>
@@ -1289,7 +1272,7 @@
                 <div class="swiper-wrapper" id="pastEvents">
                     <!-- Event 1 -->
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1524179091875-bf99a9a9a57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Pad Drive Event">
+                        <img src="event1.jpg" alt="Pad Drive Event">
                         <div class="slide-caption">
                             <h3>Pad Drive 2024</h3>
                             <p>March 15, 2024 • Olkalau</p>
@@ -1298,7 +1281,7 @@
                     </div>
                     <!-- Event 2 -->
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Children's Home Visit">
+                        <img src="event2.jpg" alt="Children's Home Visit">
                         <div class="slide-caption">
                             <h3>Children's Home Visit</h3>
                             <p>December 10, 2023 • Heaven's Eye Children Home</p>
@@ -1307,7 +1290,7 @@
                     </div>
                     <!-- Event 3 -->
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80" alt="Youth Empowerment Workshop">
+                        <img src="event3.jpg" alt="Youth Empowerment Workshop">
                         <div class="slide-caption">
                             <h3>Youth Empowerment Workshop</h3>
                             <p>August 22, 2023 • Nyahururu</p>
@@ -1316,7 +1299,7 @@
                     </div>
                     <!-- Event 4 -->
                     <div class="swiper-slide">
-                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Community Clean-up">
+                        <img src="event4.jpg" alt="Community Clean-up">
                         <div class="slide-caption">
                             <h3>Community Clean-up</h3>
                             <p>June 5, 2023 • Laikipia County</p>
@@ -1351,7 +1334,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="eventImageUrl">Image URL</label>
-                                <input type="url" id="eventImageUrl" required placeholder="https://example.com/image.jpg">
+                                <input type="url" id="eventImageUrl" required placeholder="images/event1.jpg">
                             </div>
                         </div>
                         <div class="form-group">
@@ -1383,7 +1366,10 @@
             <!-- Video Section -->
             <div class="media-card">
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <video controls>
+                        <source src="videos/events-highlight.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="media-info">
                     <h3>Recent Events Highlights</h3>
@@ -1394,7 +1380,10 @@
             <!-- Documentary Section -->
             <div class="media-card">
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <video controls>
+                        <source src="videos/documentary.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
                 <div class="media-info">
                     <h3>Compower Society Documentary</h3>
@@ -1421,8 +1410,20 @@
                         <input type="text" id="mediaTitle" required>
                     </div>
                     <div class="form-group">
-                        <label for="mediaUrl">YouTube Embed URL</label>
-                        <input type="url" id="mediaUrl" required placeholder="https://www.youtube.com/embed/VIDEO_ID">
+                        <label for="mediaSource">Video Source</label>
+                        <select id="mediaSource" required>
+                            <option value="">Select source</option>
+                            <option value="youtube">YouTube</option>
+                            <option value="direct">Direct Upload</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="youtubeUrlGroup">
+                        <label for="mediaYoutubeUrl">YouTube Embed URL</label>
+                        <input type="url" id="mediaYoutubeUrl" placeholder="https://www.youtube.com/embed/VIDEO_ID">
+                    </div>
+                    <div class="form-group" id="videoFileGroup" style="display: none;">
+                        <label for="mediaVideoFile">Video File Path</label>
+                        <input type="text" id="mediaVideoFile" placeholder="videos/documentary.mp4">
                     </div>
                     <div class="form-group">
                         <label for="mediaDescription">Description</label>
@@ -1447,93 +1448,58 @@
             <div class="leaders-grid">
                 <!-- Leader 1 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 1" class="leader-img">
+                    <img src="leaders/leader1.jpg" alt="Leader 1" class="leader-img">
                     <div class="leader-info">
                         <h3>John Mwangi</h3>
                         <p>Founder & Executive Director</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 2 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 2" class="leader-img">
+                    <img src="leaders/leader2.jpg" alt="Leader 2" class="leader-img">
                     <div class="leader-info">
                         <h3>Sarah Wanjiku</h3>
                         <p>Programs Director</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 3 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80" alt="Leader 3" class="leader-img">
+                    <img src="leaders/leader3.jpg" alt="Leader 3" class="leader-img">
                     <div class="leader-info">
                         <h3>David Omondi</h3>
                         <p>Finance Director</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 4 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=761&q=80" alt="Leader 4" class="leader-img">
+                    <img src="leaders/leader4.jpg" alt="Leader 4" class="leader-img">
                     <div class="leader-info">
                         <h3>Grace Akinyi</h3>
                         <p>Women Empowerment Coordinator</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 5 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=776&q=80" alt="Leader 5" class="leader-img">
+                    <img src="leaders/leader5.jpg" alt="Leader 5" class="leader-img">
                     <div class="leader-info">
                         <h3>Maryanne Atieno</h3>
                         <p>Youth Programs Manager</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 6 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=798&q=80" alt="Leader 6" class="leader-img">
+                    <img src="leaders/leader6.jpg" alt="Leader 6" class="leader-img">
                     <div class="leader-info">
                         <h3>Peter Kamau</h3>
                         <p>Community Outreach Coordinator</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
                 <!-- Leader 7 -->
                 <div class="leader-card">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Leader 7" class="leader-img">
+                    <img src="leaders/leader7.jpg" alt="Leader 7" class="leader-img">
                     <div class="leader-info">
                         <h3>James Mutua</h3>
                         <p>Volunteer Coordinator</p>
-                        <div class="leader-social">
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fas fa-envelope"></i></a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1609,16 +1575,6 @@
                     <div class="contact-text">
                         <h3>Location</h3>
                         <p>NYAHURURU, LAIKIPIA</p>
-                    </div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="contact-text">
-                        <h3>Working Hours</h3>
-                        <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                        <p>Saturday: 9:00 AM - 1:00 PM</p>
                     </div>
                 </div>
             </div>
@@ -1820,30 +1776,46 @@
                     date: "March 15, 2024",
                     location: "Olkalau",
                     description: "Distribution of sanitary pads to schoolgirls in rural areas to promote menstrual health and education.",
-                    image: "https://images.unsplash.com/photo-1524179091875-bf99a9a9a57a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
+                    image: "event1.jpg"
                 },
                 {
                     title: "Children's Home Visit",
                     date: "December 10, 2023",
                     location: "Heaven's Eye Children Home",
                     description: "Bringing joy and essential supplies to children in need during the holiday season.",
-                    image: "https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80"
+                    image: "event2.jpg"
                 },
                 {
                     title: "Youth Empowerment Workshop",
                     date: "August 22, 2023",
                     location: "Nyahururu",
                     description: "Skills training and mentorship program for local youth to become community leaders.",
-                    image: "https://images.unsplash.com/photo-1521791055366-0d553872125f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1738&q=80"
+                    image: "event3.jpg"
                 },
                 {
                     title: "Community Clean-up",
                     date: "June 5, 2023",
                     location: "Laikipia County",
                     description: "Bringing the community together to clean and beautify our environment.",
-                    image: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1740&q=80"
+                    image: "event4.jpg"
                 }
             ];
+
+            // Load events into slider
+            const pastEventsContainer = document.getElementById('pastEvents');
+            pastEvents.forEach(event => {
+                const slide = document.createElement('div');
+                slide.className = 'swiper-slide';
+                slide.innerHTML = `
+                    <img src="${event.image}" alt="${event.title}">
+                    <div class="slide-caption">
+                        <h3>${event.title}</h3>
+                        <p>${event.date} • ${event.location}</p>
+                        <p>${event.description}</p>
+                    </div>
+                `;
+                pastEventsContainer.appendChild(slide);
+            });
 
             // Learn More Button
             const learnMoreBtn = document.getElementById('learnMoreBtn');
@@ -1900,22 +1872,21 @@
                 }
             });
 
-            // Admin Login
-            document.getElementById('loginForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                const email = document.getElementById('loginEmail').value;
-                const password = document.getElementById('loginPassword').value;
-                
-                // Check admin credentials
-                if ((email === 'compower39@gmail.com' || email === 'fredayiera30@gmail.com') && password === '@fred123456') {
-                    alert('Login successful! Admin controls enabled.');
-                    document.getElementById('eventAdminControls').style.display = 'block';
-                    document.getElementById('mediaAdminControls').style.display = 'block';
-                    loginModal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                    this.reset();
+            // Toggle between YouTube and direct video upload fields
+            const mediaSource = document.getElementById('mediaSource');
+            const youtubeUrlGroup = document.getElementById('youtubeUrlGroup');
+            const videoFileGroup = document.getElementById('videoFileGroup');
+            
+            mediaSource.addEventListener('change', function() {
+                if (this.value === 'youtube') {
+                    youtubeUrlGroup.style.display = 'block';
+                    videoFileGroup.style.display = 'none';
+                } else if (this.value === 'direct') {
+                    youtubeUrlGroup.style.display = 'none';
+                    videoFileGroup.style.display = 'block';
                 } else {
-                    alert('Invalid email or password. Please try again.');
+                    youtubeUrlGroup.style.display = 'none';
+                    videoFileGroup.style.display = 'none';
                 }
             });
 
@@ -2022,11 +1993,32 @@
                 
                 const type = document.getElementById('mediaType').value;
                 const title = document.getElementById('mediaTitle').value;
-                const url = document.getElementById('mediaUrl').value;
+                const source = document.getElementById('mediaSource').value;
                 const description = document.getElementById('mediaDescription').value;
                 
-                // In a real app, you would save this to a database
-                alert(`Media added successfully!\nType: ${type}\nTitle: ${title}\nURL: ${url}`);
+                let mediaHtml = '';
+                
+                if (source === 'youtube') {
+                    const youtubeUrl = document.getElementById('mediaYoutubeUrl').value;
+                    mediaHtml = `
+                        <div class="video-container">
+                            <iframe src="${youtubeUrl}" title="${title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                    `;
+                } else if (source === 'direct') {
+                    const videoPath = document.getElementById('mediaVideoFile').value;
+                    mediaHtml = `
+                        <div class="video-container">
+                            <video controls>
+                                <source src="${videoPath}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    `;
+                }
+                
+                // In a real app, you would save this to a database and update the display
+                alert(`Media added successfully!\nType: ${type}\nTitle: ${title}\nSource: ${source}`);
                 
                 this.reset();
             });
