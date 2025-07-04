@@ -2341,6 +2341,7 @@
             const leaderFormTitle = document.getElementById('leaderFormTitle');
             const saveLeaderBtn = document.getElementById('saveLeaderBtn');
             const overlay = document.getElementById('overlay');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
             
             // Store for requests
             let partnerRequests = [];
@@ -2354,8 +2355,34 @@
                 { email: 'compower39@gmail.com', password: 'fred' }
             ];
 
+            // Load saved logo from localStorage if exists
+            const savedLogo = localStorage.getItem('websiteLogo');
+            if (savedLogo) {
+                websiteLogo.src = savedLogo;
+            }
+
+            // Load saved leaders from localStorage if exists
+            let leaders = [];
+            const savedLeaders = localStorage.getItem('leaders');
+            if (savedLeaders) {
+                leaders = JSON.parse(savedLeaders);
+                renderLeaders();
+            }
+
             // Toggle admin panel
             adminToggle.addEventListener('click', function() {
+                if (!isAdminLoggedIn) {
+                    loginModal.style.display = 'flex';
+                    document.body.style.overflow = 'hidden';
+                    overlay.classList.add('active');
+                } else {
+                    adminPanel.classList.toggle('active');
+                }
+            });
+
+            // Admin login button click
+            adminLoginBtn.addEventListener('click', function(e) {
+                e.preventDefault();
                 if (!isAdminLoggedIn) {
                     loginModal.style.display = 'flex';
                     document.body.style.overflow = 'hidden';
@@ -2404,7 +2431,7 @@
                     document.body.style.overflow = 'auto';
                     overlay.classList.remove('active');
                     adminPanel.classList.add('active');
-                    adminDashboard.classList.add('active');
+                    document.getElementById('adminDashboard').classList.add('active');
                     
                     // Load existing requests from localStorage
                     loadRequests();
@@ -2412,6 +2439,7 @@
                     // Change admin toggle appearance
                     adminToggle.innerHTML = '<i class="fas fa-user-shield"></i> Admin Panel';
                     adminToggle.style.background = 'var(--accent)';
+                    adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
                     
                     // Show all admin controls
                     document.querySelectorAll('.admin-controls').forEach(el => {
@@ -2423,9 +2451,6 @@
                         el.style.display = 'flex';
                     });
                     
-                    // Change login button to logout
-                    adminLoginBtn.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
-                    
                     alert('Login successful! You now have admin privileges.');
                 } else {
                     alert('Invalid credentials. Please try again.');
@@ -2435,7 +2460,7 @@
             // Logout functionality
             logoutBtn.addEventListener('click', function() {
                 isAdminLoggedIn = false;
-                adminDashboard.classList.remove('active');
+                document.getElementById('adminDashboard').classList.remove('active');
                 adminPanel.classList.remove('active');
                 document.querySelectorAll('.admin-controls').forEach(el => {
                     el.style.display = 'none';
@@ -2447,7 +2472,7 @@
                 });
                 
                 // Reset login button
-                adminLoginBtn.innerHTML = 'Admin Login';
+                adminLoginBtn.textContent = 'Admin Login';
                 adminToggle.innerHTML = '<i class="fas fa-user-shield"></i> Admin';
                 adminToggle.style.background = 'var(--primary)';
                 
@@ -2487,7 +2512,9 @@
                         // Update the website logo
                         websiteLogo.src = event.target.result;
                         
-                        // In a real app, you would upload this to your server
+                        // Save to localStorage
+                        localStorage.setItem('websiteLogo', event.target.result);
+                        
                         alert('Logo updated successfully!');
                         
                         // Close the form
@@ -2518,18 +2545,18 @@
                     const leaderCard = e.target.closest('.leader-card');
                     const leaderId = e.target.closest('.leader-admin-btn').getAttribute('data-leader-id');
                     
-                    // Get leader details
-                    const leaderName = leaderCard.querySelector('h3').textContent;
-                    const leaderPosition = leaderCard.querySelector('p').textContent;
-                    const leaderImage = leaderCard.querySelector('img').src;
+                    // Find the leader in our array
+                    const leader = leaders.find(l => l.id == leaderId);
+                    if (!leader) return;
                     
                     // Populate form
-                    document.getElementById('leaderName').value = leaderName;
-                    document.getElementById('leaderPosition').value = leaderPosition;
-                    leaderPreview.src = leaderImage;
-                    document.getElementById('leaderId').value = leaderId;
+                    document.getElementById('leaderName').value = leader.name;
+                    document.getElementById('leaderPosition').value = leader.position;
+                    document.getElementById('leaderBio').value = leader.bio || '';
+                    leaderPreview.src = leader.image;
+                    document.getElementById('leaderId').value = leader.id;
                     leaderFormTitle.textContent = 'Edit Leader';
-                    currentLeaderId = leaderId;
+                    currentLeaderId = leader.id;
                     
                     // Show form
                     leaderFormModal.classList.add('active');
@@ -2539,9 +2566,17 @@
                 // Delete leader
                 if (e.target.closest('.leader-admin-btn.delete')) {
                     if (confirm('Are you sure you want to delete this leader?')) {
-                        const leaderCard = e.target.closest('.leader-card');
-                        leaderCard.remove();
-                        // In a real app, you would also delete from the database
+                        const leaderId = e.target.closest('.leader-admin-btn').getAttribute('data-leader-id');
+                        
+                        // Remove from array
+                        leaders = leaders.filter(l => l.id != leaderId);
+                        
+                        // Save to localStorage
+                        localStorage.setItem('leaders', JSON.stringify(leaders));
+                        
+                        // Re-render leaders
+                        renderLeaders();
+                        
                         alert('Leader deleted successfully!');
                     }
                 }
@@ -2575,77 +2610,85 @@
                 const bio = document.getElementById('leaderBio').value;
                 const imageFile = document.getElementById('leaderImage').files[0];
                 
+                if (imageFile) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        processLeaderSave(name, position, bio, event.target.result);
+                    };
+                    reader.readAsDataURL(imageFile);
+                } else {
+                    // If no new image was uploaded, use the existing one (for edits)
+                    const existingImage = leaderPreview.src.includes('placeholder') ? 
+                        'https://via.placeholder.com/300x350?text=Leader+Image' : 
+                        leaderPreview.src;
+                    processLeaderSave(name, position, bio, existingImage);
+                }
+            });
+
+            function processLeaderSave(name, position, bio, imageSrc) {
                 if (currentLeaderId) {
                     // Edit existing leader
-                    const leaderCard = document.querySelector(`.leader-admin-btn.edit[data-leader-id="${currentLeaderId}"]`).closest('.leader-card');
-                    leaderCard.querySelector('h3').textContent = name;
-                    leaderCard.querySelector('p').textContent = position;
-                    
-                    if (imageFile) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            leaderCard.querySelector('img').src = event.target.result;
+                    const leaderIndex = leaders.findIndex(l => l.id == currentLeaderId);
+                    if (leaderIndex !== -1) {
+                        leaders[leaderIndex] = {
+                            id: currentLeaderId,
+                            name,
+                            position,
+                            bio,
+                            image: imageSrc
                         };
-                        reader.readAsDataURL(imageFile);
                     }
-                    
-                    alert('Leader updated successfully!');
                 } else {
                     // Add new leader
-                    const leaderId = Date.now(); // Unique ID
-                    const leaderCard = document.createElement('div');
-                    leaderCard.className = 'leader-card';
-                    
-                    let imageSrc = 'https://via.placeholder.com/300x350?text=Leader+Image';
-                    if (imageFile) {
-                        const reader = new FileReader();
-                        reader.onload = function(event) {
-                            imageSrc = event.target.result;
-                            leaderCard.innerHTML = `
-                                <img src="${imageSrc}" alt="${name}" class="leader-img">
-                                <div class="leader-info">
-                                    <h3>${name}</h3>
-                                    <p>${position}</p>
-                                </div>
-                                <div class="leader-admin-controls">
-                                    <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            `;
-                            leadersContainer.appendChild(leaderCard);
-                        };
-                        reader.readAsDataURL(imageFile);
-                    } else {
-                        leaderCard.innerHTML = `
-                            <img src="${imageSrc}" alt="${name}" class="leader-img">
-                            <div class="leader-info">
-                                <h3>${name}</h3>
-                                <p>${position}</p>
-                            </div>
-                            <div class="leader-admin-controls">
-                                <button class="leader-admin-btn edit" data-leader-id="${leaderId}">
-                                    <i class="fas fa-edit"></i>
-                                </button>
-                                <button class="leader-admin-btn delete" data-leader-id="${leaderId}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        `;
-                        leadersContainer.appendChild(leaderCard);
-                    }
-                    
-                    alert('Leader added successfully!');
+                    const newLeader = {
+                        id: Date.now(), // Unique ID
+                        name,
+                        position,
+                        bio,
+                        image: imageSrc
+                    };
+                    leaders.push(newLeader);
                 }
+                
+                // Save to localStorage
+                localStorage.setItem('leaders', JSON.stringify(leaders));
+                
+                // Re-render leaders
+                renderLeaders();
                 
                 // Close the form
                 leaderFormModal.classList.remove('active');
                 overlay.classList.remove('active');
                 leaderForm.reset();
-            });
+                
+                alert('Leader saved successfully!');
+            }
+
+            function renderLeaders() {
+                leadersContainer.innerHTML = '';
+                
+                leaders.forEach(leader => {
+                    const leaderCard = document.createElement('div');
+                    leaderCard.className = 'leader-card';
+                    leaderCard.innerHTML = `
+                        <img src="${leader.image}" alt="${leader.name}" class="leader-img">
+                        <div class="leader-info">
+                            <h3>${leader.name}</h3>
+                            <p>${leader.position}</p>
+                            ${leader.bio ? `<p class="leader-bio">${leader.bio}</p>` : ''}
+                        </div>
+                        <div class="leader-admin-controls">
+                            <button class="leader-admin-btn edit" data-leader-id="${leader.id}">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="leader-admin-btn delete" data-leader-id="${leader.id}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    `;
+                    leadersContainer.appendChild(leaderCard);
+                });
+            }
 
             // Form submissions - store requests
             document.getElementById('partnerFormData').addEventListener('submit', function(e) {
@@ -2718,9 +2761,13 @@
                     const partnerRequestsList = document.getElementById('partnerRequestsList');
                     partnerRequestsList.innerHTML = '';
                     
-                    partnerRequests.forEach(request => {
-                        addRequestToPanel(request, 'partner');
-                    });
+                    if (partnerRequests.length === 0) {
+                        partnerRequestsList.innerHTML = '<p>No partner requests yet.</p>';
+                    } else {
+                        partnerRequests.forEach(request => {
+                            addRequestToPanel(request, 'partner');
+                        });
+                    }
                 }
                 
                 if (savedSponsorRequests) {
@@ -2728,9 +2775,13 @@
                     const sponsorRequestsList = document.getElementById('sponsorRequestsList');
                     sponsorRequestsList.innerHTML = '';
                     
-                    sponsorRequests.forEach(request => {
-                        addRequestToPanel(request, 'sponsor');
-                    });
+                    if (sponsorRequests.length === 0) {
+                        sponsorRequestsList.innerHTML = '<p>No sponsor requests yet.</p>';
+                    } else {
+                        sponsorRequests.forEach(request => {
+                            addRequestToPanel(request, 'sponsor');
+                        });
+                    }
                 }
             }
 
@@ -2985,6 +3036,9 @@
                 
                 this.reset();
             });
+
+            // Initialize the page
+            loadRequests();
         });
     </script>
 </body>
