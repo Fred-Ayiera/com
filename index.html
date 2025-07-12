@@ -20,6 +20,8 @@
             --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --gold: #FFD700;
             --silver: #C0C0C0;
+            --gradient-primary: linear-gradient(135deg, #1565c0, #0d47a1);
+            --gradient-secondary: linear-gradient(135deg, #ff6d00, #e65100);
         }
 
         * {
@@ -50,7 +52,7 @@
 
         /* Header Styles */
         header {
-            background: linear-gradient(135deg, var(--primary), #0d47a1);
+            background: var(--gradient-primary);
             color: var(--white);
             padding: 1.5rem 5%;
             display: flex;
@@ -245,12 +247,12 @@
         }
 
         .btn-secondary {
-            background-color: var(--secondary);
+            background: var(--gradient-secondary);
             color: var(--white);
         }
 
         .btn-secondary:hover {
-            background-color: transparent;
+            background: transparent;
             color: var(--secondary);
             border-color: var(--secondary);
         }
@@ -309,7 +311,7 @@
         }
 
         .option-btn {
-            background-color: var(--primary);
+            background: var(--gradient-primary);
             color: white;
             border: none;
             padding: 1.2rem 2.5rem;
@@ -330,7 +332,7 @@
 
         .option-btn:hover {
             transform: translateY(-5px);
-            background-color: var(--secondary);
+            background: var(--gradient-secondary);
         }
 
         .collaboration-form {
@@ -920,6 +922,46 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* Thank You Section */
+        .thank-you {
+            text-align: center;
+            padding: 3rem 5%;
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .thank-you h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .thank-you p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+        }
+
+        /* Back to Top Button */
+        .back-to-top {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: var(--white);
+            color: var(--primary);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-5px);
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+
         /* Login Modal */
         .modal {
             display: none;
@@ -1284,6 +1326,49 @@
             color: #333;
         }
 
+        /* Messaging Functionality Styles */
+        .spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            margin: 10px auto;
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .form-group.error input,
+        .form-group.error textarea,
+        .form-group.error select {
+            border-color: #e53935;
+        }
+        
+        .error-message {
+            color: #e53935;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+        
+        .form-group.error .error-message {
+            display: block;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #4caf50;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
         /* Responsive Styles */
         @media (max-width: 992px) {
             .hero-content h1 {
@@ -1614,7 +1699,10 @@
                 <h3>Financial Donations</h3>
                 <p>Your financial support helps us continue our programs and reach more people in need.</p>
                 <div class="highlight">
-                    Send money to our Account.: <strong>0793482598</strong>
+                    Bank Account: <strong>Diamond Trust Bank, Account No: 5407418003</strong>
+                </div>
+                <div class="highlight" style="margin-top: 1rem;">
+                    MPESA: <strong>Lipa na MPESA, Business No: 516600</strong>
                 </div>
                 <p>Please include your name as the reference so we can acknowledge your donation.</p>
             </div>
@@ -1909,31 +1997,46 @@
             </div>
             <div class="contact-form">
                 <h3>Send Us a Message</h3>
-                <form id="messageForm">
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Thank you for your message! We'll get back to you soon.
+                </div>
+                <form id="messageForm" action="process_message.php" method="POST">
                     <div class="form-group">
                         <label for="messageName">Your Name</label>
-                        <input type="text" id="messageName" required>
+                        <input type="text" id="messageName" name="name" required>
+                        <div class="error-message" id="nameError">Please enter your name</div>
                     </div>
                     <div class="form-group">
                         <label for="messageEmail">Your Email</label>
-                        <input type="email" id="messageEmail" required>
+                        <input type="email" id="messageEmail" name="email" required>
+                        <div class="error-message" id="emailError">Please enter a valid email address</div>
                     </div>
                     <div class="form-group">
                         <label for="messagePhone">Phone Number (optional)</label>
-                        <input type="tel" id="messagePhone">
+                        <input type="tel" id="messagePhone" name="phone">
                     </div>
                     <div class="form-group">
                         <label for="messageSubject">Subject</label>
-                        <input type="text" id="messageSubject" required>
+                        <input type="text" id="messageSubject" name="subject" required>
+                        <div class="error-message" id="subjectError">Please enter a subject</div>
                     </div>
                     <div class="form-group">
                         <label for="messageContent">Your Message</label>
-                        <textarea id="messageContent" required></textarea>
+                        <textarea id="messageContent" name="message" required></textarea>
+                        <div class="error-message" id="contentError">Please enter your message</div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Send Message</button>
+                    <div class="spinner" id="formSpinner"></div>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Send Message</button>
                 </form>
             </div>
         </div>
+    </section>
+
+    <!-- Thank You Section -->
+    <section class="thank-you">
+        <h2>Thank You For Visiting Our Website</h2>
+        <p>Your interest in our organization means the world to us. Together, we can create lasting change in our communities.</p>
+        <a href="#home" class="back-to-top">Back to Home</a>
     </section>
 
     <!-- Footer -->
@@ -1984,7 +2087,7 @@
         </div>
         <div class="copyright">
             <p>&copy; 2025 Compower Society. All Rights Reserved.</p>
-            <p style="margin-top: 0.5rem;">Registered Community-Based Organization</p>
+            <p style="margin-top: 0.5rem;">Registered Society</p>
         </div>
     </footer>
 
@@ -2219,12 +2322,6 @@
             document.getElementById('sponsorFormData').addEventListener('submit', function(e) {
                 e.preventDefault();
                 alert('Thank you for your sponsorship application. We will contact you soon.');
-                this.reset();
-            });
-
-            document.getElementById('messageForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Thank you for your message. We will get back to you soon.');
                 this.reset();
             });
 
@@ -2896,6 +2993,99 @@
                         e.target.closest('.event-item').remove();
                         // In a real app, you would also remove from the database
                     }
+                }
+            });
+
+            // Enhanced Messaging Functionality
+            const messageForm = document.getElementById('messageForm');
+            const successMessage = document.getElementById('successMessage');
+            const formSpinner = document.getElementById('formSpinner');
+            const submitBtn = document.getElementById('submitBtn');
+
+            messageForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // Reset previous errors
+                document.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error');
+                });
+                
+                // Validate form
+                let isValid = true;
+                const name = document.getElementById('messageName').value.trim();
+                const email = document.getElementById('messageEmail').value.trim();
+                const subject = document.getElementById('messageSubject').value.trim();
+                const content = document.getElementById('messageContent').value.trim();
+                const phone = document.getElementById('messagePhone').value.trim();
+                
+                if (!name) {
+                    document.getElementById('nameError').textContent = 'Please enter your name';
+                    document.getElementById('messageName').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                if (!email) {
+                    document.getElementById('emailError').textContent = 'Please enter your email';
+                    document.getElementById('messageEmail').closest('.form-group').classList.add('error');
+                    isValid = false;
+                } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                    document.getElementById('emailError').textContent = 'Please enter a valid email address';
+                    document.getElementById('messageEmail').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                if (!subject) {
+                    document.getElementById('subjectError').textContent = 'Please enter a subject';
+                    document.getElementById('messageSubject').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                if (!content) {
+                    document.getElementById('contentError').textContent = 'Please enter your message';
+                    document.getElementById('messageContent').closest('.form-group').classList.add('error');
+                    isValid = false;
+                }
+                
+                if (!isValid) {
+                    return;
+                }
+                
+                // Show loading spinner
+                formSpinner.style.display = 'block';
+                submitBtn.disabled = true;
+                
+                try {
+                    // Create FormData object
+                    const formData = new FormData(this);
+                    
+                    // Send the form data to the server
+                    const response = await fetch('process_message.php', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    const result = await response.json();
+                    
+                    if (result.success) {
+                        // Show success message
+                        successMessage.style.display = 'block';
+                        
+                        // Reset form
+                        this.reset();
+                        
+                        // Hide success message after 5 seconds
+                        setTimeout(() => {
+                            successMessage.style.display = 'none';
+                        }, 5000);
+                    } else {
+                        alert(result.message || 'There was an error sending your message. Please try again.');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('There was an error sending your message. Please try again.');
+                } finally {
+                    formSpinner.style.display = 'none';
+                    submitBtn.disabled = false;
                 }
             });
         });
